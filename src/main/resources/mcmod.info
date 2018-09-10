@@ -1,0 +1,16 @@
+[
+{
+  "modid": "selim_enchants",
+  "name": "Selim's Enchants",
+  "description": "Adds a few new enchantments and curses.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/selims-enchantments",
+  "updateUrl": "https://minecraft.curseforge.com/projects/selims-enchantments",
+  "authorList": ["Selim_042"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

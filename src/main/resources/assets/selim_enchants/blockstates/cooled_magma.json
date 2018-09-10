@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "age=0": { "model": "selim_enchants:cooled_magma_0" },
+        "age=1": { "model": "selim_enchants:cooled_magma_1" },
+        "age=2": { "model": "selim_enchants:cooled_magma_2" },
+        "age=3": { "model": "selim_enchants:cooled_magma_3" }
+    }
+}

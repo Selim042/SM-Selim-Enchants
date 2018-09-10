@@ -1,0 +1,35 @@
+
+enchantment.selim_enchants:amplify=Amplify
+enchantment.selim_enchants:banishing=Banishing
+enchantment.selim_enchants:feller=Feller
+enchantment.selim_enchants:magma_walker=Magma Walker
+enchantment.selim_enchants:recall=Recall
+enchantment.selim_enchants:uncivilized=Uncivilized
+enchantment.selim_enchants:vorpal=Vorpal
+enchantment.selim_enchants:warping=Warping
+enchantment.selim_enchants:wither=Wither
+enchantment.selim_enchants:tilling=Tilling
+
+enchantment.selim_enchants:curse_breaking=Curse of Breaking
+
+selim_enchants:amplify_desc=Amplifies your tools
+selim_enchants:amplify_desc_1=power to a larger area.
+selim_enchants:banishing_desc=Damage bonus against Nether mobs.
+selim_enchants:feller_desc=Fells an entire tree with a single swing.
+selim_enchants:magma_walker_desc=Allows you to walk on lava
+selim_enchants:magma_walker_desc_1=as if it were solid ground.
+selim_enchants:recall_desc=Chance for enemy loot
+selim_enchants:recall_desc_1=to teleport to you.
+selim_enchants:uncivilized_desc=Damage bonus against human-like mobs.
+selim_enchants:vorpal_desc=Defeated enemies have a
+selim_enchants:vorpal_desc_1=chance to drop their heads.
+selim_enchants:warping_desc=Damage bonus against Ender mobs.
+selim_enchants:wither_desc=Applies a withering effect.
+selim_enchants:tilling_desc=Tills a larger area of land.
+
+selim_enchants:curse_breaking_desc=Causes your equipment
+selim_enchants:curse_breaking_desc_1=to break quicker.
+
+selim_enchants:shift_for_info=Shift for more information...
+selim_enchants:no_info_found=No information found...
+selim_enchants:enchant_disabled=This enchantment has been disabled
