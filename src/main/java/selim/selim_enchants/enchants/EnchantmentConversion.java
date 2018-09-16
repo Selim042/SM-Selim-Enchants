@@ -1,0 +1,86 @@
+package selim.selim_enchants.enchants;
+
+import java.util.List;
+
+import com.mojang.realmsclient.gui.ChatFormatting;
+
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemShield;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import selim.selim_enchants.EnchantmentSelim;
+import selim.selim_enchants.ITooltipInfo;
+import selim.selim_enchants.Registry;
+import selim.selim_enchants.SelimEnchants;
+
+@Mod.EventBusSubscriber(modid = SelimEnchants.MOD_ID)
+public class EnchantmentConversion extends EnchantmentSelim implements ITooltipInfo {
+
+	public EnchantmentConversion() {
+		super(Rarity.RARE, EnumEnchantmentType.ALL,
+				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
+		this.setName(SelimEnchants.MOD_ID + ":" + "conversion");
+		this.setRegistryName("conversion");
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
+			ITooltipFlag flagIn) {
+		if (!this.isEnabled())
+			tooltip.add(
+					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
+		else
+			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":conversion_desc"));
+	}
+
+	@Override
+	public int getMaxLevel() {
+		return 3;
+	}
+
+	@Override
+	public int getMinEnchantability(int enchantmentLevel) {
+		return 10 + (enchantmentLevel * 10);
+	}
+
+	@Override
+	protected boolean canApplyTogether(Enchantment ench) {
+		return !(ench instanceof EnchantmentReflection);
+	}
+
+	@Override
+	public boolean canApply(ItemStack stack) {
+		return stack != null && stack.getItem() instanceof ItemShield;
+	}
+
+	@SubscribeEvent
+	public static void onDamaged(LivingAttackEvent event) {
+		EntityLivingBase entity = event.getEntityLiving();
+		ItemStack activeStack = entity.getActiveItemStack();
+		boolean shielding = activeStack != null && activeStack.getItem() instanceof ItemShield;
+		int level = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.CONVERSION, activeStack);
+		if (!shielding || level <= 0)
+			return;
+		float damage = event.getAmount();
+		entity.heal(damage * ((float) level / 10));
+		entity.world.playSound(entity.posX, entity.posY, entity.posZ,
+				new SoundEvent(new ResourceLocation("minecraft", "block.enchantment_table.use")),
+				SoundCategory.PLAYERS, 0.75f, 1.0f, true);
+	}
+
+}

@@ -10,8 +10,10 @@ import selim.selim_enchants.blocks.BlockCooledMagma;
 import selim.selim_enchants.curses.EnchantmentCurseBreaking;
 import selim.selim_enchants.enchants.EnchantmentAmplify;
 import selim.selim_enchants.enchants.EnchantmentBanishing;
+import selim.selim_enchants.enchants.EnchantmentConversion;
 import selim.selim_enchants.enchants.EnchantmentMagmaWalker;
 import selim.selim_enchants.enchants.EnchantmentRecall;
+import selim.selim_enchants.enchants.EnchantmentReflection;
 import selim.selim_enchants.enchants.EnchantmentTilling;
 import selim.selim_enchants.enchants.EnchantmentUncivilized;
 import selim.selim_enchants.enchants.EnchantmentVenomous;
@@ -43,6 +45,8 @@ public class Registry {
 		public static final EnchantmentSelim RECALL = null;
 		public static final EnchantmentSelim TILLING = null;
 		public static final EnchantmentSelim VENOM = null;
+		public static final EnchantmentSelim CONVERSION = null;
+		public static final EnchantmentSelim REFLECTION = null;
 
 		public static final EnchantmentSelim CURSE_BREAKING = null;
 
@@ -66,6 +70,8 @@ public class Registry {
 		event.getRegistry().register(new EnchantmentRecall());
 		event.getRegistry().register(new EnchantmentTilling());
 		event.getRegistry().register(new EnchantmentVenomous());
+		event.getRegistry().register(new EnchantmentConversion());
+		event.getRegistry().register(new EnchantmentReflection());
 
 		event.getRegistry().register(new EnchantmentCurseBreaking());
 	}
