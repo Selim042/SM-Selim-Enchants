@@ -14,6 +14,7 @@ import selim.selim_enchants.enchants.EnchantmentMagmaWalker;
 import selim.selim_enchants.enchants.EnchantmentRecall;
 import selim.selim_enchants.enchants.EnchantmentTilling;
 import selim.selim_enchants.enchants.EnchantmentUncivilized;
+import selim.selim_enchants.enchants.EnchantmentVenomous;
 import selim.selim_enchants.enchants.EnchantmentVorpal;
 import selim.selim_enchants.enchants.EnchantmentWarping;
 import selim.selim_enchants.enchants.EnchantmentWither;
@@ -41,6 +42,7 @@ public class Registry {
 		public static final EnchantmentSelim WITHER = null;
 		public static final EnchantmentSelim RECALL = null;
 		public static final EnchantmentSelim TILLING = null;
+		public static final EnchantmentSelim VENOM = null;
 
 		public static final EnchantmentSelim CURSE_BREAKING = null;
 
@@ -63,6 +65,7 @@ public class Registry {
 		event.getRegistry().register(new EnchantmentWither());
 		event.getRegistry().register(new EnchantmentRecall());
 		event.getRegistry().register(new EnchantmentTilling());
+		event.getRegistry().register(new EnchantmentVenomous());
 
 		event.getRegistry().register(new EnchantmentCurseBreaking());
 	}
