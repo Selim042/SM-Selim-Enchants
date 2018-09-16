@@ -46,10 +46,8 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 		if (!this.isEnabled())
 			tooltip.add(
 					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
-		else {
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":reflection_desc"));
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":reflection_desc_1"));
-		}
+		else
+			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".reflection.desc"));
 	}
 
 	@Override

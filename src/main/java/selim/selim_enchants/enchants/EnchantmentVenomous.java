@@ -44,7 +44,7 @@ public class EnchantmentVenomous extends EnchantmentSelim implements ITooltipInf
 			tooltip.add(
 					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 		else
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":venom_desc"));
+			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".venom.desc"));
 	}
 
 	@Override

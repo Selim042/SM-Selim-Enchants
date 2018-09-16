@@ -53,10 +53,8 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 		if (!this.isEnabled())
 			tooltip.add(
 					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
-		else {
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":vorpal_desc"));
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":vorpal_desc_1"));
-		}
+		else
+			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".vorpal.desc"));
 	}
 
 	@Override

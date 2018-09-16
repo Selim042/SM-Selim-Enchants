@@ -52,10 +52,8 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 		if (!this.isEnabled())
 			tooltip.add(
 					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
-		else {
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":magma_walker_desc"));
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":magma_walker_desc_1"));
-		}
+		else
+			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".magma_walker.desc"));
 	}
 
 	@Override

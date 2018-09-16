@@ -50,10 +50,8 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 		if (!this.isEnabled())
 			tooltip.add(
 					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
-		else {
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":recall_desc"));
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":recall_desc_1"));
-		}
+		else
+			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".recall.desc"));
 	}
 
 	@Override

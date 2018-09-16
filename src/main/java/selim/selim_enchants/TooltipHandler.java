@@ -13,6 +13,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,8 +21,13 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = SelimEnchants.MOD_ID)
 public class TooltipHandler {
 
+	private final static String ENCHANT_DESC_ID = "enchdesc";
+	private final static String WAWLA_ID = "wawla";
+
 	@SubscribeEvent
 	public static void onTooltip(ItemTooltipEvent event) {
+		if (Loader.isModLoaded(ENCHANT_DESC_ID) || Loader.isModLoaded(WAWLA_ID))
+			return;
 		ItemStack stack = event.getItemStack();
 		Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
 		List<String> tooltip = event.getToolTip();

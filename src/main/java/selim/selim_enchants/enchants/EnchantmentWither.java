@@ -44,7 +44,7 @@ public class EnchantmentWither extends EnchantmentSelim implements ITooltipInfo 
 			tooltip.add(
 					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 		else
-			tooltip.add(I18n.format(SelimEnchants.MOD_ID + ":wither_desc"));
+			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".wither.desc"));
 	}
 
 	@Override
