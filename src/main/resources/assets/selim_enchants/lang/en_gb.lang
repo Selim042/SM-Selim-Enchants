@@ -9,6 +9,9 @@ enchantment.selim_enchants:vorpal=Vorpal
 enchantment.selim_enchants:warping=Warping
 enchantment.selim_enchants:wither=Wither
 enchantment.selim_enchants:tilling=Tilling
+enchantment.selim_enchants:venom=Venomous
+enchantment.selim_enchants:conversion=Conversion
+enchantment.selim_enchants:reflection=Reflection
 
 enchantment.selim_enchants:curse_breaking=Curse of Breaking
 
@@ -26,6 +29,10 @@ selim_enchants:vorpal_desc_1=chance to drop their heads.
 selim_enchants:warping_desc=Damage bonus against Ender mobs.
 selim_enchants:wither_desc=Applies a withering effect.
 selim_enchants:tilling_desc=Tills a larger area of land.
+selim_enchants:venom_desc=Applies a venomous effect.
+selim_enchants:conversion_desc=Heals the player being attacked.
+selim_enchants:reflection_desc=Reflects some blocked
+selim_enchants:reflection_desc_1=damage to the attacker.
 
 selim_enchants:curse_breaking_desc=Causes your equipment
 selim_enchants:curse_breaking_desc_1=to break quicker.
