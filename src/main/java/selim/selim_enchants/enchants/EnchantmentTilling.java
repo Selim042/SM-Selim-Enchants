@@ -72,6 +72,11 @@ public class EnchantmentTilling extends EnchantmentSelim implements ITooltipInfo
 	}
 
 	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		return stack != null && stack.getItem() instanceof ItemHoe;
+	}
+
+	@Override
 	public boolean canApply(ItemStack stack) {
 		return stack != null && stack.getItem() instanceof ItemHoe;
 	}

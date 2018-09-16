@@ -68,6 +68,11 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 	}
 
 	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		return stack != null && stack.getItem() instanceof ItemShield;
+	}
+
+	@Override
 	public boolean canApply(ItemStack stack) {
 		return stack != null && stack.getItem() instanceof ItemShield;
 	}
@@ -87,8 +92,9 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 			if (!shielding)
 				return;
 			float damage = event.getAmount();
-			damagerLiving.attackEntityFrom(DamageSource.causeMobDamage(entity),
+			damagerLiving.attackEntityFrom(DamageSource.causeThornsDamage(entity),
 					damage * ((float) level / 5));
+			activeStack.damageItem((int) (damage / (5 / (float) level)), entity);
 			entity.world.playSound(entity.posX, entity.posY, entity.posZ,
 					new SoundEvent(new ResourceLocation("minecraft", "enchant.thorns.hit")),
 					SoundCategory.PLAYERS, 0.75f, 1.0f, true);

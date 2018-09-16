@@ -64,6 +64,11 @@ public class EnchantmentConversion extends EnchantmentSelim implements ITooltipI
 	}
 
 	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		return stack != null && stack.getItem() instanceof ItemShield;
+	}
+
+	@Override
 	public boolean canApply(ItemStack stack) {
 		return stack != null && stack.getItem() instanceof ItemShield;
 	}
