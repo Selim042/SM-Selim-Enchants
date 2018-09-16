@@ -75,6 +75,8 @@ public class EnchantmentConversion extends EnchantmentSelim implements ITooltipI
 
 	@SubscribeEvent
 	public static void onDamaged(LivingAttackEvent event) {
+		if (!Registry.Enchantments.CONVERSION.isEnabled())
+			return;
 		EntityLivingBase entity = event.getEntityLiving();
 		ItemStack activeStack = entity.getActiveItemStack();
 		boolean shielding = activeStack != null && activeStack.getItem() instanceof ItemShield;

@@ -77,6 +77,8 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 
 	@SubscribeEvent
 	public static void onDamaged(LivingAttackEvent event) {
+		if (!Registry.Enchantments.REFLECTION.isEnabled())
+			return;
 		EntityLivingBase entity = event.getEntityLiving();
 		Entity damager = event.getSource().getTrueSource();
 		if (damager instanceof EntityLivingBase) {
