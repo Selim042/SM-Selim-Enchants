@@ -13,12 +13,12 @@ public class EnchantmentSelim extends Enchantment {
 		super(rarityIn, typeIn, slots);
 	}
 
-	public boolean isEnabled() {
+	public final boolean isEnabled() {
 		return EnchantConfig.isEnabled(this);
 	}
 
 	@Override
-	public String getTranslatedName(int level) {
+	public final String getTranslatedName(int level) {
 		if (!isEnabled())
 			return ChatFormatting.DARK_RED + super.getTranslatedName(level);
 		return super.getTranslatedName(level);
