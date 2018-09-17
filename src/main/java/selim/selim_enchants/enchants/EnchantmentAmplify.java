@@ -14,6 +14,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -108,6 +109,11 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 					itemStack);
 			boolean isSpade = itemStack.getItem() instanceof ItemSpade;
 			BlockPos pos = event.getPos();
+
+			// Shift the center pos down to eye level
+			if (enchLevel > 1)
+				pos = pos.offset(EnumFacing.UP, enchLevel - 1);
+
 			for (int x = enchLevel * -1; x <= enchLevel; x++) {
 				for (int y = enchLevel * -1; y <= enchLevel; y++) {
 					BlockPos newPos = nextPos(pos, x, y,
