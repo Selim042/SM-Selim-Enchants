@@ -26,8 +26,6 @@ public class TooltipHandler {
 
 	@SubscribeEvent
 	public static void onTooltip(ItemTooltipEvent event) {
-		if (Loader.isModLoaded(ENCHANT_DESC_ID) || Loader.isModLoaded(WAWLA_ID))
-			return;
 		ItemStack stack = event.getItemStack();
 		Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
 		List<String> tooltip = event.getToolTip();
@@ -43,11 +41,25 @@ public class TooltipHandler {
 			if (index == -1)
 				continue;
 			index++;
+			// Print out disabled text before skipping
+			// if there are other tooltip mods
+			if (ench instanceof EnchantmentSelim && !((EnchantmentSelim) ench).isEnabled()) {
+				tooltip.add(index, " " + ChatFormatting.DARK_RED + ChatFormatting.ITALIC
+						+ I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
+				continue;
+			}
+			// Skip if other tooltip mods are installed
+			if (Loader.isModLoaded(ENCHANT_DESC_ID) || Loader.isModLoaded(WAWLA_ID))
+				continue;
+
+			// "Shift for more info" text
 			if (!GuiScreen.isShiftKeyDown()) {
 				tooltip.add(index, " " + ChatFormatting.DARK_GRAY + ChatFormatting.ITALIC
 						+ I18n.format(SelimEnchants.MOD_ID + ":shift_for_info"));
 				continue;
 			}
+
+			// Get and translate ITooltipInfo text
 			List<String> infoList = new LinkedList<>();
 			ITooltipInfo tooltipInfo = (ITooltipInfo) ench;
 			tooltipInfo.addInformation(stack, event.getEntity().world, infoList, event.getFlags());
