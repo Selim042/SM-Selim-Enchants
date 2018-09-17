@@ -6,7 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class EnchantmentSelim extends Enchantment {
+public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 
 	protected EnchantmentSelim(Rarity rarityIn, EnumEnchantmentType typeIn,
 			EntityEquipmentSlot[] slots) {
