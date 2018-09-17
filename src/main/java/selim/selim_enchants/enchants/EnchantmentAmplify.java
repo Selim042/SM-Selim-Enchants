@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -124,7 +125,14 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 						if (!player.isCreative())
 							// TODO: Replace null param
 							itemStack.attemptDamageItem(1, player.getRNG(), null);
-						world.destroyBlock(newPos, !player.isCreative());
+
+						// Destroy blocks properly so that the
+						// game thinks the player actually did it
+						IBlockState state = world.getBlockState(newPos);
+						state.getBlock().removedByPlayer(state, world, newPos, player, true);
+						state.getBlock().harvestBlock(world, player, newPos, state, null, itemStack);
+
+						// world.destroyBlock(newPos, !player.isCreative());
 					}
 				}
 			}
