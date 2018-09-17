@@ -11,6 +11,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
@@ -95,8 +96,7 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 			damagerLiving.attackEntityFrom(DamageSource.causeThornsDamage(entity),
 					damage * ((float) level / 5));
 			activeStack.damageItem((int) (damage / (5 / (float) level)), entity);
-			entity.world.playSound(entity.posX, entity.posY, entity.posZ,
-					new SoundEvent(new ResourceLocation("minecraft", "enchant.thorns.hit")),
+			entity.world.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ENCHANT_THORNS_HIT,
 					SoundCategory.PLAYERS, 0.75f, 1.0f, true);
 		}
 	}

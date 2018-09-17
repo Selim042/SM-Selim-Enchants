@@ -10,6 +10,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
@@ -86,8 +87,7 @@ public class EnchantmentConversion extends EnchantmentSelim implements ITooltipI
 		float damage = event.getAmount();
 		entity.heal(damage * ((float) level / 10));
 		entity.world.playSound(entity.posX, entity.posY, entity.posZ,
-				new SoundEvent(new ResourceLocation("minecraft", "block.enchantment_table.use")),
-				SoundCategory.PLAYERS, 0.75f, 1.0f, true);
+				SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 0.75f, 1.0f, true);
 	}
 
 }
