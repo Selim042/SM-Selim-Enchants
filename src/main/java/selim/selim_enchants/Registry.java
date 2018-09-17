@@ -6,6 +6,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 import selim.selim_enchants.blocks.BlockCooledMagma;
 import selim.selim_enchants.curses.EnchantmentCurseBreaking;
 import selim.selim_enchants.enchants.EnchantmentAmplify;
@@ -61,22 +62,23 @@ public class Registry {
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Enchantment> event) {
-		event.getRegistry().register(new EnchantmentAmplify());
-		event.getRegistry().register(new EnchantmentBanishing());
-		// event.getRegistry().register(new EnchantmentFeller());
-		event.getRegistry().register(new EnchantmentMagmaWalker());
-		event.getRegistry().register(new EnchantmentUncivilized());
-		event.getRegistry().register(new EnchantmentVorpal());
-		event.getRegistry().register(new EnchantmentWarping());
-		event.getRegistry().register(new EnchantmentWither());
-		event.getRegistry().register(new EnchantmentRecall());
-		event.getRegistry().register(new EnchantmentTilling());
-		event.getRegistry().register(new EnchantmentVenomous());
-		event.getRegistry().register(new EnchantmentConversion());
-		event.getRegistry().register(new EnchantmentReflection());
-		event.getRegistry().register(new EnchantmentEnderShift());
+		IForgeRegistry<Enchantment> registry = event.getRegistry();
+		registry.register(new EnchantmentAmplify());
+		registry.register(new EnchantmentBanishing());
+		// registry.register(new EnchantmentFeller());
+		registry.register(new EnchantmentMagmaWalker());
+		registry.register(new EnchantmentUncivilized());
+		registry.register(new EnchantmentVorpal());
+		registry.register(new EnchantmentWarping());
+		registry.register(new EnchantmentWither());
+		registry.register(new EnchantmentRecall());
+		registry.register(new EnchantmentTilling());
+		registry.register(new EnchantmentVenomous());
+		registry.register(new EnchantmentConversion());
+		registry.register(new EnchantmentReflection());
+		registry.register(new EnchantmentEnderShift());
 
-		event.getRegistry().register(new EnchantmentCurseBreaking());
+		registry.register(new EnchantmentCurseBreaking());
 	}
 
 }
