@@ -12,6 +12,7 @@ enchantment.selim_enchants:tilling=Tilling
 enchantment.selim_enchants:venom=Venomous
 enchantment.selim_enchants:conversion=Conversion
 enchantment.selim_enchants:reflection=Reflection
+enchantment.selim_enchants:ender_shift=Ender Shift
 
 enchantment.selim_enchants:curse_breaking=Curse of Breaking
 
@@ -28,6 +29,7 @@ enchantment.selim_enchants.tilling.desc=Tills a larger area of land.
 enchantment.selim_enchants.venom.desc=Applies a venomous effect.
 enchantment.selim_enchants.conversion.desc=Heals the player being attacked.
 enchantment.selim_enchants.reflection.desc=Reflects some blocked damage to the attacker.
+enchantment.selim_enchants.ender_shift.desc=Transports dropped items to your Ender Chest.
 
 enchantment.selim_enchants.curse_breaking.desc=Causes your equipment to break quicker.
 

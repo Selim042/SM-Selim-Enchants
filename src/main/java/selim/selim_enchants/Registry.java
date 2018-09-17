@@ -11,6 +11,7 @@ import selim.selim_enchants.curses.EnchantmentCurseBreaking;
 import selim.selim_enchants.enchants.EnchantmentAmplify;
 import selim.selim_enchants.enchants.EnchantmentBanishing;
 import selim.selim_enchants.enchants.EnchantmentConversion;
+import selim.selim_enchants.enchants.EnchantmentEnderShift;
 import selim.selim_enchants.enchants.EnchantmentMagmaWalker;
 import selim.selim_enchants.enchants.EnchantmentRecall;
 import selim.selim_enchants.enchants.EnchantmentReflection;
@@ -47,6 +48,7 @@ public class Registry {
 		public static final EnchantmentSelim VENOM = null;
 		public static final EnchantmentSelim CONVERSION = null;
 		public static final EnchantmentSelim REFLECTION = null;
+		public static final EnchantmentSelim ENDER_SHIFT = null;
 
 		public static final EnchantmentSelim CURSE_BREAKING = null;
 
@@ -72,6 +74,7 @@ public class Registry {
 		event.getRegistry().register(new EnchantmentVenomous());
 		event.getRegistry().register(new EnchantmentConversion());
 		event.getRegistry().register(new EnchantmentReflection());
+		event.getRegistry().register(new EnchantmentEnderShift());
 
 		event.getRegistry().register(new EnchantmentCurseBreaking());
 	}
