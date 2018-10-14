@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -44,7 +43,7 @@ public class TooltipHandler {
 			// Print out disabled text before skipping
 			// if there are other tooltip mods
 			if (ench instanceof EnchantmentSelim && !((EnchantmentSelim) ench).isEnabled()) {
-				tooltip.add(index, " " + ChatFormatting.DARK_RED + ChatFormatting.ITALIC
+				tooltip.add(index, " " + TextFormatting.DARK_RED + TextFormatting.ITALIC
 						+ I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 				continue;
 			}
@@ -54,7 +53,7 @@ public class TooltipHandler {
 
 			// "Shift for more info" text
 			if (!GuiScreen.isShiftKeyDown()) {
-				tooltip.add(index, " " + ChatFormatting.DARK_GRAY + ChatFormatting.ITALIC
+				tooltip.add(index, " " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
 						+ I18n.format(SelimEnchants.MOD_ID + ":shift_for_info"));
 				continue;
 			}
@@ -66,9 +65,9 @@ public class TooltipHandler {
 			if (!infoList.isEmpty())
 				for (int i = 0; i < infoList.size(); i++)
 					tooltip.add(index + i,
-							" " + ChatFormatting.DARK_GRAY + ChatFormatting.ITALIC + infoList.get(i));
+							" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + infoList.get(i));
 			else
-				tooltip.add(index, " " + ChatFormatting.DARK_GRAY + ChatFormatting.ITALIC
+				tooltip.add(index, " " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
 						+ I18n.format(SelimEnchants.MOD_ID + ":no_info_found"));
 		}
 	}

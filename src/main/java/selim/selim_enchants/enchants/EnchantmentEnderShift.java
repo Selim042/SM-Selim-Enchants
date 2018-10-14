@@ -3,8 +3,6 @@ package selim.selim_enchants.enchants;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -21,6 +19,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
@@ -50,7 +49,7 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 			ITooltipFlag flagIn) {
 		if (!this.isEnabled())
 			tooltip.add(
-					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
+					TextFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 		else
 			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".ender_shift.desc"));
 	}

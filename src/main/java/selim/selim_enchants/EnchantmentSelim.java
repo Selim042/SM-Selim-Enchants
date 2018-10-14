@@ -1,10 +1,9 @@
 package selim.selim_enchants;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.util.text.TextFormatting;
 
 public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 
@@ -20,7 +19,7 @@ public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 	@Override
 	public final String getTranslatedName(int level) {
 		if (!isEnabled())
-			return ChatFormatting.DARK_RED + super.getTranslatedName(level);
+			return TextFormatting.DARK_RED + super.getTranslatedName(level);
 		return super.getTranslatedName(level);
 	}
 

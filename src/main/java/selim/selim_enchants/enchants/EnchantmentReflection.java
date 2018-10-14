@@ -2,8 +2,6 @@ package selim.selim_enchants.enchants;
 
 import java.util.List;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -16,9 +14,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -46,7 +43,7 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 			ITooltipFlag flagIn) {
 		if (!this.isEnabled())
 			tooltip.add(
-					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
+					TextFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 		else
 			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".reflection.desc"));
 	}

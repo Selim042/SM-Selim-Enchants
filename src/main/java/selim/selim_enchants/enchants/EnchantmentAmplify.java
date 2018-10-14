@@ -2,8 +2,6 @@ package selim.selim_enchants.enchants;
 
 import java.util.List;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,6 +17,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -47,7 +46,7 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 			ITooltipFlag flagIn) {
 		if (!this.isEnabled())
 			tooltip.add(
-					ChatFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
+					TextFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 		else
 			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".amplify.desc"));
 	}
