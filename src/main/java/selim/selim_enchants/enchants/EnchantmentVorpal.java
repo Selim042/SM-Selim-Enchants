@@ -102,54 +102,43 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 		event.getDrops().add(new EntityItem(killed.world, killed.posX, killed.posY, killed.posZ, skull));
 	}
 
+	private static float getRate(int vorpal, int looting) {
+		switch (vorpal) {
+		case 0:
+			return 1f - (looting * 0.1f);
+		case 1:
+			if (looting == 0)
+				return 0.99f;
+			return 0.99f * ((4 - looting) / 4f);
+		case 2:
+			if (looting == 0)
+				return 0.66f;
+			return 0.66f * ((4 - looting) / 4f);
+		case 3:
+			if (looting == 0)
+				return 0.33f;
+			return 0.33f * ((4 - looting) / 4f);
+		default:
+			return 0f;
+		}
+	}
+
 	private static ItemStack getSkull(Entity entity, int vorpal, int looting) {
-		if (!entity.getEntityWorld().isRemote) {
-			boolean dropped = false;
-			if (vorpal >= 3 && looting >= 3)
-				dropped = true;
-			if (!dropped) {
-				double randD = entity.world.rand.nextDouble();
-				double val;
-				switch (vorpal) {
-				case 1:
-					if (looting > 0)
-						val = 0.5 / looting;
-					else
-						val = 0.5;
-					break;
-				case 2:
-					if (looting > 0)
-						val = 0.5 / looting;
-					else
-						val = 0.33;
-					break;
-				case 3:
-					if (looting > 0)
-						val = 0.5 / looting;
-					else
-						val = 0.25;
-					break;
-				default:
-					val = 1;
-					break;
-				}
-				dropped = randD >= val;
-			}
-			if (dropped) {
-				if (entity instanceof EntitySkeleton)
-					return new ItemStack(SKULL);
-				else if (entity instanceof EntityWitherSkeleton)
-					return new ItemStack(SKULL, 1, 1);
-				else if (entity instanceof EntityZombie)
-					return new ItemStack(SKULL, 1, 2);
-				else if (entity instanceof EntityPlayer) {
-					ItemStack itemStack = new ItemStack(SKULL, 1, 3);
-					itemStack.setTagCompound(new NBTTagCompound());
-					itemStack.getTagCompound().setString("SkullOwner", entity.getName());
-					return itemStack;
-				} else if (entity instanceof EntityCreeper)
-					return new ItemStack(SKULL, 1, 4);
-			}
+		if (!entity.getEntityWorld().isRemote
+				&& entity.world.rand.nextFloat() >= getRate(vorpal, looting)) {
+			if (entity instanceof EntitySkeleton)
+				return new ItemStack(SKULL);
+			else if (entity instanceof EntityWitherSkeleton)
+				return new ItemStack(SKULL, 1, 1);
+			else if (entity instanceof EntityZombie)
+				return new ItemStack(SKULL, 1, 2);
+			else if (entity instanceof EntityPlayer) {
+				ItemStack itemStack = new ItemStack(SKULL, 1, 3);
+				itemStack.setTagCompound(new NBTTagCompound());
+				itemStack.getTagCompound().setString("SkullOwner", entity.getName());
+				return itemStack;
+			} else if (entity instanceof EntityCreeper)
+				return new ItemStack(SKULL, 1, 4);
 		}
 		return ItemStack.EMPTY;
 	}

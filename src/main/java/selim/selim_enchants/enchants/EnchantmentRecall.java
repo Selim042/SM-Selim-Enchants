@@ -147,8 +147,9 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 		if (recallLevel <= 0)
 			return;
 		Random rand = killed.world.rand;
-		int movedExp = (int) Math.min(event.getDroppedExperience(), ((rand.nextFloat() / 20) - 0.025f)
-				+ (event.getDroppedExperience() / (float) recallLevel));
+		int movedExp = (int) Math.min(event.getDroppedExperience(),
+				((rand.nextFloat() / 20) - 0.025f) + (event.getDroppedExperience()
+						/ (Registry.Enchantments.RECALL.getMaxLevel() - (float) recallLevel)));
 		event.setDroppedExperience(event.getDroppedExperience() - movedExp);
 		killer.world.spawnEntity(
 				new EntityXPOrb(killer.world, killer.posX, killer.posY, killer.posZ, movedExp));
