@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentDamage;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityEndermite;
@@ -17,8 +18,10 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
@@ -82,7 +85,7 @@ public class EnchantmentWarping extends EnchantmentSelim implements ITooltipInfo
 
 	@Override
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-		if (!this.isEnabled())
+		if (!this.isEnabled() || target.getEntityWorld().isRemote)
 			return;
 		boolean isEnder = false;
 		if (target instanceof EntityEnderman)
@@ -93,10 +96,15 @@ public class EnchantmentWarping extends EnchantmentSelim implements ITooltipInfo
 			isEnder = true;
 		else if (target instanceof EntityDragon)
 			isEnder = true;
-		if (!target.getEntityWorld().isRemote && isEnder) {
+		if (isEnder) {
 			target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5F);
+			return;
 		}
-		super.onEntityDamaged(user, target, level);
+		for (EnumCreatureType type : EnumCreatureType.values())
+			for (Biome.SpawnListEntry e : Biome.REGISTRY.getObject(new ResourceLocation("sky"))
+					.getSpawnableList(type))
+				if (e.entityClass.equals(target.getClass()))
+					target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5f);
 	}
 
 }
