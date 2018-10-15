@@ -21,6 +21,7 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -109,24 +110,9 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 	}
 
 	private static float getRate(int vorpal, int looting) {
-		switch (vorpal) {
-		case 0:
-			return 1f - (looting * 0.1f);
-		case 1:
-			if (looting == 0)
-				return 0.8f;
-			return 0.8f * ((4 - looting) / 4f);
-		case 2:
-			if (looting == 0)
-				return 0.6f;
-			return 0.6f * ((4 - looting) / 4f);
-		case 3:
-			if (looting == 0)
-				return 0.2f;
-			return 0.2f * ((4 - looting) / 4f);
-		default:
-			return 0f;
-		}
+		return (1f - (0.2f * vorpal))
+				* ((Enchantment.REGISTRY.getObject(new ResourceLocation("looting")).getMaxLevel() + 1
+						- looting) / 4f);
 	}
 
 	private static ItemStack getSkull(Entity entity, int vorpal, int looting) {
