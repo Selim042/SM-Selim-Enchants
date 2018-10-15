@@ -29,7 +29,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import selim.selim_enchants.EnchantConfig;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -58,7 +57,16 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 
 	@Override
 	public boolean canApply(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
 		return stack.getItem() instanceof ItemAxe ? true : super.canApply(stack);
+	}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
+		return true;
 	}
 
 	@Override
@@ -68,8 +76,6 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
-		if (!EnchantConfig.isEnabled(this))
-			return -1;
 		return this.getMinEnchantability(enchantmentLevel) + 50;
 	}
 

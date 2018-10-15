@@ -65,11 +65,15 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
 		return stack != null && stack.getItem() instanceof ItemShield;
 	}
 
 	@Override
 	public boolean canApply(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
 		return stack != null && stack.getItem() instanceof ItemShield;
 	}
 

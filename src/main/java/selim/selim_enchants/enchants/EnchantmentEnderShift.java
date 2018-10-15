@@ -66,6 +66,8 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 
 	@Override
 	public boolean canApply(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
 		return stack != null && (stack.getItem() instanceof ItemTool
 				|| stack.getItem() instanceof ItemSword || stack.getItem() instanceof ItemBow);
 	}
@@ -73,6 +75,13 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 	@Override
 	public boolean isTreasureEnchantment() {
 		return true;
+	}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
+		return false;
 	}
 
 	@SubscribeEvent

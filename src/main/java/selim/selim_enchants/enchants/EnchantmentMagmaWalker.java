@@ -28,7 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import selim.selim_enchants.EnchantConfig;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -56,6 +55,20 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 	}
 
 	@Override
+	public boolean canApply(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
+		return true;
+	}
+
+	@Override
 	public int getMaxLevel() {
 		return 2;
 	}
@@ -67,8 +80,6 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
-		if (!EnchantConfig.isEnabled(this))
-			return -1;
 		return this.getMinEnchantability(enchantmentLevel) + 15;
 	}
 

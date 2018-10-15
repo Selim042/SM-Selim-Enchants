@@ -52,7 +52,16 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 	}
 
 	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
+		return true;
+	}
+
+	@Override
 	public boolean canApply(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
 		return stack.getItem() instanceof ItemPickaxe || stack.getItem() instanceof ItemSpade;
 	}
 
@@ -65,8 +74,6 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
-		if (!EnchantConfig.isEnabled(this))
-			return -1;
 		return this.getMinEnchantability(enchantmentLevel) + 50;
 	}
 

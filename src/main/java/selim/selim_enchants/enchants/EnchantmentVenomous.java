@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import selim.selim_enchants.EnchantConfig;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.SelimEnchants;
@@ -48,7 +47,16 @@ public class EnchantmentVenomous extends EnchantmentSelim implements ITooltipInf
 
 	@Override
 	public boolean canApply(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
 		return stack.getItem() instanceof ItemAxe ? true : super.canApply(stack);
+	}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if (!this.isEnabled())
+			return false;
+		return true;
 	}
 
 	@Override
@@ -58,8 +66,6 @@ public class EnchantmentVenomous extends EnchantmentSelim implements ITooltipInf
 
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
-		if (!EnchantConfig.isEnabled(this))
-			return -1;
 		return this.getMinEnchantability(enchantmentLevel) + 50;
 	}
 
