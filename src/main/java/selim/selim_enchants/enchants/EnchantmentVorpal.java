@@ -112,7 +112,7 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 
 	private static float getRate(int vorpal, int looting) {
 		if (!EnchantConfig.LOOTING_ONLY_HEADS && vorpal == 0)
-			return 1f;
+			return 2f;
 		return (1f - (0.2f * vorpal))
 				* ((Enchantment.REGISTRY.getObject(new ResourceLocation("looting")).getMaxLevel() + 1
 						- looting) / 4f);
