@@ -15,6 +15,7 @@ public class EnchantConfig {
 	private static boolean inited = false;
 
 	private static final Map<EnchantmentSelim, Boolean> ENABLED = new HashMap<>();
+	public static boolean LOOTING_ONLY_HEADS = true;
 
 	protected static void load(File configFile) {
 		if (loaded)
@@ -36,6 +37,8 @@ public class EnchantConfig {
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		LOOTING_ONLY_HEADS = config.getBoolean("looting_only_heads", "vorpal", true,
+				"Allows mob heads to drop at a low rate when only looting is applied");
 		config.save();
 		inited = true;
 	}

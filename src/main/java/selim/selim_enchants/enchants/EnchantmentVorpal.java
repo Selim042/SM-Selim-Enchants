@@ -30,6 +30,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import selim.selim_enchants.EnchantConfig;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -110,6 +111,8 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 	}
 
 	private static float getRate(int vorpal, int looting) {
+		if (!EnchantConfig.LOOTING_ONLY_HEADS && vorpal == 0)
+			return 1f;
 		return (1f - (0.2f * vorpal))
 				* ((Enchantment.REGISTRY.getObject(new ResourceLocation("looting")).getMaxLevel() + 1
 						- looting) / 4f);
