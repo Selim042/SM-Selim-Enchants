@@ -114,16 +114,16 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 			return 1f - (looting * 0.1f);
 		case 1:
 			if (looting == 0)
-				return 0.99f;
-			return 0.99f * ((4 - looting) / 4f);
+				return 0.8f;
+			return 0.8f * ((4 - looting) / 4f);
 		case 2:
 			if (looting == 0)
-				return 0.66f;
-			return 0.66f * ((4 - looting) / 4f);
+				return 0.6f;
+			return 0.6f * ((4 - looting) / 4f);
 		case 3:
 			if (looting == 0)
-				return 0.33f;
-			return 0.33f * ((4 - looting) / 4f);
+				return 0.2f;
+			return 0.2f * ((4 - looting) / 4f);
 		default:
 			return 0f;
 		}
