@@ -148,7 +148,7 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 		if (recallLevel <= 0)
 			return;
 		Random rand = killed.world.rand;
-		int invertedLevel = Registry.Enchantments.RECALL.getMaxLevel() - recallLevel;
+		int invertedLevel = (Registry.Enchantments.RECALL.getMaxLevel() + 1) - recallLevel;
 		if (invertedLevel <= 0)
 			invertedLevel = 1;
 		int movedExp = (int) Math.min(event.getDroppedExperience(),
