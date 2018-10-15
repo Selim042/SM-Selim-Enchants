@@ -9,18 +9,16 @@ import net.minecraft.enchantment.EnchantmentDamage;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
@@ -84,23 +82,17 @@ public class EnchantmentBanishing extends EnchantmentSelim implements ITooltipIn
 
 	@Override
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-		if (!this.isEnabled())
+		if (!this.isEnabled() || target.getEntityWorld().isRemote)
 			return;
-		boolean isNether = false;
-		if (target instanceof EntityPigZombie)
-			isNether = true;
-		else if (target instanceof EntityMagmaCube)
-			isNether = true;
-		else if (target instanceof EntityGhast)
-			isNether = true;
-		else if (target instanceof EntityWither)
-			isNether = true;
-		else if (target instanceof EntityBlaze)
-			isNether = true;
-		else if (target instanceof EntityWitherSkeleton)
-			isNether = true;
-		if (!target.getEntityWorld().isRemote && isNether)
-			target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5F);
+		if (target instanceof EntityWither) {
+			target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5f);
+			return;
+		}
+		for (EnumCreatureType type : EnumCreatureType.values())
+			for (Biome.SpawnListEntry e : Biome.REGISTRY.getObject(new ResourceLocation("hell"))
+					.getSpawnableList(type))
+				if (e.entityClass.equals(target.getClass()))
+					target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5f);
 	}
 
 }
