@@ -18,6 +18,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -105,10 +106,9 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 						) {
 							worldIn.setBlockState(lavaPos,
 									Registry.Blocks.COOLED_MAGMA.getDefaultState());
-							// TODO: find replacement for World#scheduleUpdate
-							// worldIn.scheduleUpdate(lavaPos.toImmutable(),
-							// Registry.Blocks.COOLED_MAGMA,
-							// MathHelper.nextInt(living.getRNG(), 60, 120));
+							worldIn.getPendingBlockTicks().scheduleTick(lavaPos.toImmutable(),
+									Registry.Blocks.COOLED_MAGMA,
+									MathHelper.nextInt(living.getRNG(), 60, 120));
 						}
 					}
 				}

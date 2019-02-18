@@ -27,13 +27,11 @@ public class BlockCooledMagma extends BlockMagma {
 				.needsRandomTick().hardnessAndResistance(0.5F));
 		this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
 		this.setRegistryName("cooled_magma");
-		// TODO: find setter for unlocalized name
-		// this.setUnlocalizedName(SelimEnchants.MOD_ID + ":" + "cooled_magma");
 		// TODO: find setter for harvest tool and level
 		// this.setHarvestLevel("pickaxe", 0);
 	}
 
-	protected void turnIntoWater(World worldIn, BlockPos pos) {
+	protected void turnIntoLava(World worldIn, BlockPos pos) {
 		worldIn.setBlockState(pos, Blocks.LAVA.getDefaultState());
 		worldIn.notifyNeighborsOfStateChange(pos, Blocks.LAVA);
 	}
@@ -48,8 +46,8 @@ public class BlockCooledMagma extends BlockMagma {
 	public void tick(IBlockState state, World worldIn, BlockPos pos, Random rand) {
 		if ((rand.nextInt(3) == 0 || this.countNeighbors(worldIn, pos) < 4))
 			this.slightlyMelt(worldIn, pos, state, rand, true);
-		// TODO: find World#scheduleUpdate
-		// else worldIn.scheduleUpdate(pos, this, rand.nextInt(20) + 20);
+		else
+			worldIn.getPendingBlockTicks().scheduleTick(pos, this, rand.nextInt(20) + 20);
 	}
 
 	@Override
@@ -58,7 +56,7 @@ public class BlockCooledMagma extends BlockMagma {
 		if (blockIn == this) {
 			int i = this.countNeighbors(worldIn, pos);
 			if (i < 2)
-				this.turnIntoWater(worldIn, pos);
+				this.turnIntoLava(worldIn, pos);
 		}
 	}
 
@@ -82,10 +80,9 @@ public class BlockCooledMagma extends BlockMagma {
 
 		if (i < 3) {
 			world.setBlockState(pos, state.with(AGE, Integer.valueOf(i + 1)), 2);
-			// TODO: find World#scheduleUpdate
-			// world.scheduleUpdate(pos, this, rand.nextInt(20) + 20);
+			world.getPendingBlockTicks().scheduleTick(pos, this, rand.nextInt(20) + 20);
 		} else {
-			this.turnIntoWater(world, pos);
+			this.turnIntoLava(world, pos);
 
 			if (p_185681_5_) {
 				for (EnumFacing enumfacing : EnumFacing.values()) {

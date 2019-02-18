@@ -6,7 +6,7 @@ import net.minecraft.util.text.TextComponentScore;
 import net.minecraft.util.text.TextComponentTranslation;
 
 // TODO: find proper solution to not do this V
-// Directly copied from Forge 1.12.
+// Directly copied from Forge 1.12
 public class TextComponentString extends TextComponentBase {
 
 	private final String text;

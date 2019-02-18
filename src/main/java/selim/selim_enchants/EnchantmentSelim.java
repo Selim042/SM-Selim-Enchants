@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 
 public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 
@@ -27,11 +28,9 @@ public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 
 	@Override
 	public ITextComponent func_200305_d(int level) {
-		// TODO: fix this
-		// if (!isEnabled())
-		// return new TextStringComponent(
-		// TextFormatting.DARK_RED +
-		// super.func_200305_d(level).getFormattedText());
+		if (!isEnabled())
+			return new TextComponentString(
+					TextFormatting.DARK_RED + super.func_200305_d(level).getFormattedText());
 		return super.func_200305_d(level);
 	}
 

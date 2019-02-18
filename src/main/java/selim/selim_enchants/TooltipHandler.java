@@ -45,12 +45,11 @@ public class TooltipHandler {
 			if (ench instanceof EnchantmentSelim && !((EnchantmentSelim) ench).isEnabled()) {
 				tooltip.add(index,
 						new TextComponentString(" " + TextFormatting.DARK_RED + TextFormatting.ITALIC
-								+ I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled")));
+								+ I18n.format(SelimEnchants.MOD_ID + ".enchant_disabled")));
 				continue;
 			}
 
 			// Skip if other tooltip mods are installed
-			// TODO: find new mod loader class
 			if (ModList.get().isLoaded(ENCHANT_DESC_ID) || ModList.get().isLoaded(WAWLA_ID))
 				continue;
 
@@ -58,7 +57,7 @@ public class TooltipHandler {
 			if (!GuiScreen.isShiftKeyDown()) {
 				tooltip.add(index,
 						new TextComponentString(" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
-								+ I18n.format(SelimEnchants.MOD_ID + ":shift_for_info")));
+								+ I18n.format(SelimEnchants.MOD_ID + ".shift_for_info")));
 				continue;
 			}
 
@@ -72,7 +71,7 @@ public class TooltipHandler {
 							" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + infoList.get(i)));
 			else
 				tooltip.add(index, new TextComponentString(" " + TextFormatting.DARK_GRAY
-						+ TextFormatting.ITALIC + I18n.format(SelimEnchants.MOD_ID + ":no_info_found")));
+						+ TextFormatting.ITALIC + I18n.format(SelimEnchants.MOD_ID + ".no_info_found")));
 		}
 	}
 
