@@ -11,8 +11,8 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.SelimEnchants;
@@ -23,11 +23,11 @@ public class EnchantmentFeller extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentFeller() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.DIGGER,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "feller");
+		this.name = SelimEnchants.MOD_ID + ":" + "feller";
 		this.setRegistryName("feller");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -73,8 +73,9 @@ public class EnchantmentFeller extends EnchantmentSelim implements ITooltipInfo 
 	// IBlockState blockState = world.getBlockState(pos);
 	// if (itemStack != null && itemStack.isItemEnchanted() && !world.isRemote
 	// && !player.isSneaking()) {
-	// int enchLevel = EnchantmentHelper.getEnchantmentLevel(
-	// Registry.Enchants.FELLER, itemStack);
+	// int enchLevel =
+	// EnchantmentHelper.getEnchantmentLevel(Registry.Enchants.FELLER,
+	// itemStack);
 	// if (enchLevel == 1) {
 	// if (blockState.getBlock() instanceof BlockLog) {
 	// int val = 1;
@@ -107,7 +108,9 @@ public class EnchantmentFeller extends EnchantmentSelim implements ITooltipInfo 
 	// }
 	// for (int i = 0; i < val; i++) {
 	// if (!player.isCreative())
-	// // TODO: Replace null param
+	// if (player instanceof EntityPlayerMP)
+	// itemStack.attemptDamageItem(1, player.getRNG(), (EntityPlayerMP) player);
+	// else
 	// itemStack.attemptDamageItem(1, player.getRNG(), null);
 	// world.destroyBlock(pos.add(0, i, 0), !player.isCreative());
 	// }

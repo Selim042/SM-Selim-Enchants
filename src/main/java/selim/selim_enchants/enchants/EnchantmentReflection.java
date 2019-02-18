@@ -17,11 +17,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -33,11 +33,11 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 	public EnchantmentReflection() {
 		super(Rarity.RARE, EnumEnchantmentType.ALL,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "reflection");
+		this.name = SelimEnchants.MOD_ID + ":" + "reflection";
 		this.setRegistryName("reflection");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {

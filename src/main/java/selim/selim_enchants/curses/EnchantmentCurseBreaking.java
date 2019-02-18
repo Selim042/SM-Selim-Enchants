@@ -12,12 +12,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -28,11 +28,11 @@ public class EnchantmentCurseBreaking extends EnchantmentSelim implements IToolt
 
 	public EnchantmentCurseBreaking() {
 		super(Rarity.COMMON, EnumEnchantmentType.BREAKABLE, EntityEquipmentSlot.values());
-		this.setName(SelimEnchants.MOD_ID + ":curse_breaking");
+		this.name = SelimEnchants.MOD_ID + ":curse_breaking";
 		this.setRegistryName("curse_breaking");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {

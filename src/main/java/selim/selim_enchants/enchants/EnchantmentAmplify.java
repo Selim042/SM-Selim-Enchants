@@ -9,6 +9,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
@@ -19,12 +20,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import selim.selim_enchants.EnchantConfig;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -36,11 +37,11 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 	public EnchantmentAmplify() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.DIGGER,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "amplify");
+		this.name = SelimEnchants.MOD_ID + ":" + "amplify";
 		this.setRegistryName("amplify");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -67,8 +68,9 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 
 	@Override
 	public int getMinEnchantability(int enchantmentLevel) {
-		if (!EnchantConfig.isEnabled(this))
-			return (Integer.MAX_VALUE / 4) * 3;
+		// TODO: fix configs
+		// if (!EnchantConfig.isEnabled(this))
+		// return (Integer.MAX_VALUE / 4) * 3;
 		return 17 + (enchantmentLevel) * 10;
 	}
 
@@ -109,7 +111,7 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 		EntityPlayer player = event.getPlayer();
 		ItemStack itemStack = player.getHeldItem(EnumHand.MAIN_HAND);
 		World world = player.getEntityWorld();
-		if (itemStack != null && itemStack.isItemEnchanted() && !world.isRemote && !player.isSneaking()
+		if (itemStack != null && itemStack.isEnchanted() && !world.isRemote && !player.isSneaking()
 				&& EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.AMPLIFY,
 						itemStack) != 0) {
 			int enchLevel = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.AMPLIFY,
@@ -127,15 +129,18 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 							MathHelper.floor((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
 					if (itemStack.canHarvestBlock(world.getBlockState(newPos))
 							|| (isSpade && world.getBlockState(newPos).getBlock()
-									.isToolEffective("shovel", world.getBlockState(newPos)))) {
+									.isToolEffective(world.getBlockState(newPos), ToolType.SHOVEL))) {
 						if (!player.isCreative())
-							// TODO: Replace null param
-							itemStack.attemptDamageItem(1, player.getRNG(), null);
+							if (player instanceof EntityPlayerMP)
+								itemStack.attemptDamageItem(1, player.getRNG(), (EntityPlayerMP) player);
+							else
+								itemStack.attemptDamageItem(1, player.getRNG(), null);
 
 						// Destroy blocks properly so that the
 						// game thinks the player actually did it
 						IBlockState state = world.getBlockState(newPos);
-						state.getBlock().removedByPlayer(state, world, newPos, player, true);
+						state.getBlock().removedByPlayer(state, world, newPos, player, true,
+								state.getFluidState());
 						state.getBlock().harvestBlock(world, player, newPos, state, null, itemStack);
 
 						// world.destroyBlock(newPos, !player.isCreative());

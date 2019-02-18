@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentDamage;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityDrowned;
 import net.minecraft.entity.monster.EntityEvoker;
 import net.minecraft.entity.monster.EntityIllusionIllager;
 import net.minecraft.entity.monster.EntityIronGolem;
@@ -27,8 +28,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.SelimEnchants;
@@ -38,11 +39,11 @@ public class EnchantmentUncivilized extends EnchantmentSelim implements ITooltip
 	public EnchantmentUncivilized() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "uncivilized");
+		this.name = SelimEnchants.MOD_ID + ":" + "uncivilized";
 		this.setRegistryName("uncivilized");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -92,7 +93,6 @@ public class EnchantmentUncivilized extends EnchantmentSelim implements ITooltip
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
 		if (!this.isEnabled())
 			return;
-		// TODO: Add drowneds
 		boolean isHumanish = false;
 		if (target instanceof EntityVillager)
 			isHumanish = true;
@@ -117,6 +117,8 @@ public class EnchantmentUncivilized extends EnchantmentSelim implements ITooltip
 		else if (target instanceof EntityVex)
 			isHumanish = true;
 		else if (target instanceof EntityIllusionIllager)
+			isHumanish = true;
+		else if (target instanceof EntityDrowned)
 			isHumanish = true;
 		if (!target.getEntityWorld().isRemote && isHumanish)
 			target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5F);

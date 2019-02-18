@@ -14,6 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SelimEnchants.MOD_ID)
@@ -42,21 +43,22 @@ public class TooltipHandler {
 			// Print out disabled text before skipping
 			// if there are other tooltip mods
 			if (ench instanceof EnchantmentSelim && !((EnchantmentSelim) ench).isEnabled()) {
-				tooltip.add(index, " " + TextFormatting.DARK_RED + TextFormatting.ITALIC
-						+ I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
+				tooltip.add(index,
+						new TextComponentString(" " + TextFormatting.DARK_RED + TextFormatting.ITALIC
+								+ I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled")));
 				continue;
 			}
 
 			// Skip if other tooltip mods are installed
 			// TODO: find new mod loader class
-			// if (Loader.isModLoaded(ENCHANT_DESC_ID) ||
-			// Loader.isModLoaded(WAWLA_ID))
-			// continue;
+			if (ModList.get().isLoaded(ENCHANT_DESC_ID) || ModList.get().isLoaded(WAWLA_ID))
+				continue;
 
 			// "Shift for more info" text
 			if (!GuiScreen.isShiftKeyDown()) {
-				tooltip.add(index, " " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
-						+ I18n.format(SelimEnchants.MOD_ID + ":shift_for_info"));
+				tooltip.add(index,
+						new TextComponentString(" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
+								+ I18n.format(SelimEnchants.MOD_ID + ":shift_for_info")));
 				continue;
 			}
 
@@ -66,11 +68,11 @@ public class TooltipHandler {
 			tooltipInfo.addInformation(stack, event.getEntity().world, infoList, event.getFlags());
 			if (!infoList.isEmpty())
 				for (int i = 0; i < infoList.size(); i++)
-					tooltip.add(index + i,
-							" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + infoList.get(i));
+					tooltip.add(index + i, new TextComponentString(
+							" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + infoList.get(i)));
 			else
-				tooltip.add(index, " " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
-						+ I18n.format(SelimEnchants.MOD_ID + ":no_info_found"));
+				tooltip.add(index, new TextComponentString(" " + TextFormatting.DARK_GRAY
+						+ TextFormatting.ITALIC + I18n.format(SelimEnchants.MOD_ID + ":no_info_found")));
 		}
 	}
 

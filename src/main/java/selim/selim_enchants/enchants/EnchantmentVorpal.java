@@ -15,8 +15,8 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,13 +24,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import selim.selim_enchants.EnchantConfig;
+import net.minecraftforge.registries.ForgeRegistries;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -42,11 +41,11 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentVorpal() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "vorpal");
+		this.name = SelimEnchants.MOD_ID + ":" + "vorpal";
 		this.setRegistryName("vorpal");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -91,9 +90,6 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 		return !(ench instanceof EnchantmentVorpal);
 	}
 
-	@ObjectHolder("minecraft:skull")
-	private static Item SKULL;
-
 	@SubscribeEvent
 	public static void onEntityDeath(LivingDropsEvent event) {
 		if (!Registry.Enchantments.VORPAL.isEnabled())
@@ -111,29 +107,30 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 	}
 
 	private static float getRate(int vorpal, int looting) {
-		if (!EnchantConfig.LOOTING_ONLY_HEADS && vorpal == 0)
-			return 2f;
+		// TODO: fix configs
+		// if (!EnchantConfig.LOOTING_ONLY_HEADS && vorpal == 0)
+		// return 2f;
 		return (1f - (0.2f * vorpal))
-				* ((Enchantment.REGISTRY.getObject(new ResourceLocation("looting")).getMaxLevel() + 1
-						- looting) / 4f);
+				* ((ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation("looting")).getMaxLevel()
+						+ 1 - looting) / 4f);
 	}
 
 	private static ItemStack getSkull(Entity entity, int vorpal, int looting) {
 		if (!entity.getEntityWorld().isRemote
 				&& entity.world.rand.nextFloat() >= getRate(vorpal, looting)) {
 			if (entity instanceof EntitySkeleton)
-				return new ItemStack(SKULL);
+				return new ItemStack(Items.SKELETON_SKULL);
 			else if (entity instanceof EntityWitherSkeleton)
-				return new ItemStack(SKULL, 1, 1);
+				return new ItemStack(Items.WITHER_SKELETON_SKULL, 1);
 			else if (entity instanceof EntityZombie)
-				return new ItemStack(SKULL, 1, 2);
+				return new ItemStack(Items.ZOMBIE_HEAD, 1);
 			else if (entity instanceof EntityPlayer) {
-				ItemStack itemStack = new ItemStack(SKULL, 1, 3);
-				itemStack.setTagCompound(new NBTTagCompound());
-				itemStack.getTagCompound().setString("SkullOwner", entity.getName());
+				ItemStack itemStack = new ItemStack(Items.PLAYER_HEAD, 1);
+				itemStack.setTag(new NBTTagCompound());
+				itemStack.getTag().setString("SkullOwner", entity.getName().getString());
 				return itemStack;
 			} else if (entity instanceof EntityCreeper)
-				return new ItemStack(SKULL, 1, 4);
+				return new ItemStack(Items.CREEPER_HEAD, 1);
 		}
 		return ItemStack.EMPTY;
 	}

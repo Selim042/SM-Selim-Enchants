@@ -13,7 +13,9 @@ public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 	}
 
 	public final boolean isEnabled() {
-		return EnchantConfig.isEnabled(this);
+		// TODO: fix configs
+		// return EnchantConfig.isEnabled(this);
+		return true;
 	}
 
 	// @Override

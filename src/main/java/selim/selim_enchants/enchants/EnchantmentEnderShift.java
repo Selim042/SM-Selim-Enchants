@@ -1,6 +1,7 @@
 package selim.selim_enchants.enchants;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.client.resources.I18n;
@@ -21,13 +22,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -39,11 +40,11 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 	public EnchantmentEnderShift() {
 		super(Rarity.VERY_RARE, EnumEnchantmentType.ALL,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "ender_shift");
+		this.name = SelimEnchants.MOD_ID + ":" + "ender_shift";
 		this.setRegistryName("ender_shift");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -88,39 +89,45 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 	public static void onBlockBreak(HarvestDropsEvent event) {
 		if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
 			return;
-		if (handleDropStacks(event.getWorld(), event.getPos(), event.getHarvester(), event.getDrops()))
+		if (event.getHarvester() != null && handleDropStacks(event.getHarvester().getEntityWorld(),
+				event.getPos(), event.getHarvester(), event.getDrops()))
 			event.getDrops().clear();
 	}
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void onMobDeathFirst(LivingDropsEvent event) {
-		if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
-			return;
-		Entity killer = event.getSource().getTrueSource();
-		if (!(killer instanceof EntityPlayer) || killer.world.isRemote || event.isCanceled())
-			return;
-		EntityPlayer livingKiller = (EntityPlayer) killer;
-		int level = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.ENDER_SHIFT,
-				livingKiller.getHeldItem(EnumHand.MAIN_HAND));
-		if (level <= 0)
-			return;
-		if (!event.isCanceled())
-			event.getEntity().captureDrops = true;
-	}
+	// @SubscribeEvent(priority = EventPriority.HIGHEST)
+	// public static void onMobDeathFirst(LivingDropsEvent event) {
+	// if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
+	// return;
+	// Entity killer = event.getSource().getTrueSource();
+	// if (!(killer instanceof EntityPlayer) || killer.world.isRemote ||
+	// event.isCanceled())
+	// return;
+	// EntityPlayer livingKiller = (EntityPlayer) killer;
+	// int level =
+	// EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.ENDER_SHIFT,
+	// livingKiller.getHeldItem(EnumHand.MAIN_HAND));
+	// if (level <= 0)
+	// return;
+	// if (!event.isCanceled())
+	// event.getEntity().captureDrops = true;
+	// }
 
+	// TODO: double check this change works, no longer set captureDrops before
+	// rest are called, instead call captureDrops at the end
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onMobDeathLast(LivingDropsEvent event) {
 		if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
 			return;
 		Entity trueSource = event.getSource().getTrueSource();
 		if (trueSource instanceof EntityPlayer) {
-			event.setCanceled(handleDropEntities(event.getEntity().world,
-					new BlockPos(event.getEntity()), (EntityPlayer) trueSource, event.getDrops()));
+			event.setCanceled(
+					handleDropEntities(event.getEntity().world, new BlockPos(event.getEntity()),
+							(EntityPlayer) trueSource, event.getEntity().captureDrops()));
 		}
 	}
 
 	private static boolean handleDropEntities(World world, BlockPos dropPos, EntityPlayer player,
-			List<EntityItem> dropEntities) {
+			Collection<EntityItem> dropEntities) {
 		List<ItemStack> dropStacks = new ArrayList<>();
 		for (EntityItem i : dropEntities)
 			dropStacks.add(i.getItem());
@@ -128,7 +135,7 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 	}
 
 	private static boolean handleDropStacks(World world, BlockPos dropPos, EntityPlayer player,
-			List<ItemStack> drops) {
+			Collection<ItemStack> drops) {
 		if (player == null)
 			return false;
 		int level = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.ENDER_SHIFT,

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -12,22 +12,19 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -39,11 +36,11 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 	public EnchantmentMagmaWalker() {
 		super(Enchantment.Rarity.RARE, EnumEnchantmentType.ARMOR_FEET,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.FEET });
-		this.setName(SelimEnchants.MOD_ID + ":" + "magma_walker");
+		this.name = SelimEnchants.MOD_ID + ":" + "magma_walker";
 		this.setRegistryName("magma_walker");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -99,15 +96,19 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 						IBlockState lavaState = worldIn.getBlockState(lavaPos);
 
 						if (lavaState.getMaterial() == Material.LAVA
-								&& (lavaState.getBlock() == Blocks.LAVA
-										|| lavaState.getBlock() == Blocks.FLOWING_LAVA)
-								&& lavaState.getValue(BlockLiquid.LEVEL).intValue() == 0
-								&& worldIn.mayPlace(Registry.Blocks.COOLED_MAGMA, lavaPos, false,
-										EnumFacing.DOWN, (Entity) null)) {
+								&& (lavaState.getBlock() == Blocks.LAVA)
+								&& lavaState.get(BlockFlowingFluid.LEVEL).intValue() == 0
+						// TODO: find replacement for World#mayPlace
+						// && worldIn.mayPlace(Registry.Blocks.COOLED_MAGMA,
+						// lavaPos, false,
+						// EnumFacing.DOWN, (Entity) null)
+						) {
 							worldIn.setBlockState(lavaPos,
 									Registry.Blocks.COOLED_MAGMA.getDefaultState());
-							worldIn.scheduleUpdate(lavaPos.toImmutable(), Registry.Blocks.COOLED_MAGMA,
-									MathHelper.getInt(living.getRNG(), 60, 120));
+							// TODO: find replacement for World#scheduleUpdate
+							// worldIn.scheduleUpdate(lavaPos.toImmutable(),
+							// Registry.Blocks.COOLED_MAGMA,
+							// MathHelper.nextInt(living.getRNG(), 60, 120));
 						}
 					}
 				}

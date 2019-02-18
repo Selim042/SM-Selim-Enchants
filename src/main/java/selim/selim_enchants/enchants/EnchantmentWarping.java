@@ -22,8 +22,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.SelimEnchants;
@@ -33,11 +34,11 @@ public class EnchantmentWarping extends EnchantmentSelim implements ITooltipInfo
 	public EnchantmentWarping() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.setName(SelimEnchants.MOD_ID + ":" + "warping");
+		this.name = SelimEnchants.MOD_ID + ":" + "warping";
 		this.setRegistryName("warping");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -101,9 +102,9 @@ public class EnchantmentWarping extends EnchantmentSelim implements ITooltipInfo
 			return;
 		}
 		for (EnumCreatureType type : EnumCreatureType.values())
-			for (Biome.SpawnListEntry e : Biome.REGISTRY.getObject(new ResourceLocation("sky"))
-					.getSpawnableList(type))
-				if (e.entityClass.equals(target.getClass()))
+			for (Biome.SpawnListEntry e : ForgeRegistries.BIOMES.getValue(new ResourceLocation("sky"))
+					.getSpawns(type))
+				if (e.entityType.equals(target.getType()))
 					target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5f);
 	}
 

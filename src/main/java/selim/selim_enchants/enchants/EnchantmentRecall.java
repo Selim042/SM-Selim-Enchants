@@ -19,13 +19,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
 import selim.selim_enchants.Registry;
@@ -37,11 +37,11 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentRecall() {
 		super(Rarity.VERY_RARE, EnumEnchantmentType.BOW,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
-		this.setName(SelimEnchants.MOD_ID + ":recall");
+		this.name = SelimEnchants.MOD_ID + ":recall";
 		this.setRegistryName("recall");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
 			ITooltipFlag flagIn) {
@@ -99,22 +99,25 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 		// System.out.println(living.getHealth() <= 0.0f);
 	}
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void onEntityDeathFirst(LivingDropsEvent event) {
-		if (!Registry.Enchantments.RECALL.isEnabled())
-			return;
-		Entity killer = event.getSource().getTrueSource();
-		if (!(killer instanceof EntityLivingBase) || killer.world.isRemote || event.isCanceled())
-			return;
-		EntityLivingBase livingKiller = (EntityLivingBase) killer;
-		int recallLevel = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.RECALL,
-				livingKiller.getHeldItem(EnumHand.MAIN_HAND));
-		if (recallLevel <= 0)
-			return;
-		if (!event.isCanceled())
-			event.getEntity().captureDrops = true;
-	}
+	// @SubscribeEvent(priority = EventPriority.HIGHEST)
+	// public static void onEntityDeathFirst(LivingDropsEvent event) {
+	// if (!Registry.Enchantments.RECALL.isEnabled())
+	// return;
+	// Entity killer = event.getSource().getTrueSource();
+	// if (!(killer instanceof EntityLivingBase) || killer.world.isRemote ||
+	// event.isCanceled())
+	// return;
+	// EntityLivingBase livingKiller = (EntityLivingBase) killer;
+	// int recallLevel =
+	// EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.RECALL,
+	// livingKiller.getHeldItem(EnumHand.MAIN_HAND));
+	// if (recallLevel <= 0)
+	// return;
+	// if (!event.isCanceled())
+	// event.getEntity().captureDrops = true;
+	// }
 
+	// TODO: see todo on EnchantmentEnderShift#onMobDeathLast
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onEntityDeathLast(LivingDropsEvent event) {
 		if (!Registry.Enchantments.RECALL.isEnabled())
