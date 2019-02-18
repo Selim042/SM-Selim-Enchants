@@ -3,9 +3,8 @@ package selim.selim_enchants;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import selim.selim_enchants.blocks.BlockCooledMagma;
 import selim.selim_enchants.curses.EnchantmentCurseBreaking;
@@ -26,14 +25,16 @@ import selim.selim_enchants.enchants.EnchantmentWither;
 @Mod.EventBusSubscriber(modid = SelimEnchants.MOD_ID)
 public class Registry {
 
-	@GameRegistry.ObjectHolder(SelimEnchants.MOD_ID)
+	// TODO: find new ObjectHolder
+	// @GameRegistry.ObjectHolder(SelimEnchants.MOD_ID)
 	public static class Blocks {
 
 		public static final Block COOLED_MAGMA = null;
 
 	}
 
-	@GameRegistry.ObjectHolder(SelimEnchants.MOD_ID)
+	// TODO: find new ObjectHolder
+	// @GameRegistry.ObjectHolder(SelimEnchants.MOD_ID)
 	public static class Enchantments {
 
 		public static final EnchantmentSelim AMPLIFY = null;

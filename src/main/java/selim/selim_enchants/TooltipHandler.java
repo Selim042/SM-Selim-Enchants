@@ -10,29 +10,28 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = SelimEnchants.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SelimEnchants.MOD_ID)
 public class TooltipHandler {
 
 	private final static String ENCHANT_DESC_ID = "enchdesc";
 	private final static String WAWLA_ID = "wawla";
 
-	@SubscribeEvent
+	@net.minecraftforge.eventbus.api.SubscribeEvent
 	public static void onTooltip(ItemTooltipEvent event) {
 		ItemStack stack = event.getItemStack();
 		Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
-		List<String> tooltip = event.getToolTip();
+		List<ITextComponent> tooltip = event.getToolTip();
 		for (Entry<Enchantment, Integer> enchant : enchants.entrySet()) {
 			Enchantment ench = enchant.getKey();
 			if (!(ench instanceof ITooltipInfo))
 				continue;
-			String name = ench.getTranslatedName(enchant.getValue());
+			ITextComponent name = ench.func_200305_d(enchant.getValue());
 			int index = -1;
 			for (int i = 0; i < tooltip.size(); i++)
 				if (name.equals(tooltip.get(i)))
@@ -47,9 +46,12 @@ public class TooltipHandler {
 						+ I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
 				continue;
 			}
+
 			// Skip if other tooltip mods are installed
-			if (Loader.isModLoaded(ENCHANT_DESC_ID) || Loader.isModLoaded(WAWLA_ID))
-				continue;
+			// TODO: find new mod loader class
+			// if (Loader.isModLoaded(ENCHANT_DESC_ID) ||
+			// Loader.isModLoaded(WAWLA_ID))
+			// continue;
 
 			// "Shift for more info" text
 			if (!GuiScreen.isShiftKeyDown()) {

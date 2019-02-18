@@ -3,7 +3,7 @@ package selim.selim_enchants;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ITextComponent;
 
 public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 
@@ -16,11 +16,21 @@ public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 		return EnchantConfig.isEnabled(this);
 	}
 
+	// @Override
+	// public final String getTranslatedName(int level) {
+	// if (!isEnabled())
+	// return TextFormatting.DARK_RED + super.getTranslatedName(level);
+	// return super.getTranslatedName(level);
+	// }
+
 	@Override
-	public final String getTranslatedName(int level) {
-		if (!isEnabled())
-			return TextFormatting.DARK_RED + super.getTranslatedName(level);
-		return super.getTranslatedName(level);
+	public ITextComponent func_200305_d(int level) {
+		// TODO: fix this
+		// if (!isEnabled())
+		// return new TextStringComponent(
+		// TextFormatting.DARK_RED +
+		// super.func_200305_d(level).getFormattedText());
+		return super.func_200305_d(level);
 	}
 
 }
