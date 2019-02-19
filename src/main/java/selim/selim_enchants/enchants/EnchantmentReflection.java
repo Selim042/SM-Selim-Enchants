@@ -33,7 +33,6 @@ public class EnchantmentReflection extends EnchantmentSelim implements ITooltipI
 	public EnchantmentReflection() {
 		super(Rarity.RARE, EnumEnchantmentType.ALL,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "reflection";
 		this.setRegistryName("reflection");
 	}
 

@@ -23,7 +23,7 @@ import selim.selim_enchants.enchants.EnchantmentVorpal;
 import selim.selim_enchants.enchants.EnchantmentWarping;
 import selim.selim_enchants.enchants.EnchantmentWither;
 
-@Mod.EventBusSubscriber(modid = SelimEnchants.MOD_ID)
+@Mod.EventBusSubscriber(modid = SelimEnchants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Registry {
 
 	@ObjectHolder(SelimEnchants.MOD_ID)

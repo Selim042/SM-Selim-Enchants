@@ -21,7 +21,8 @@ public class TextComponentString extends TextComponentBase {
 	 * with instances of {@link TextComponentString} - for other purposes, use
 	 * {@link #getUnformattedComponentText()}.
 	 */
-	public String getText() {
+	@Override
+	public String getFormattedText() {
 		return this.text;
 	}
 
@@ -32,6 +33,7 @@ public class TextComponentString extends TextComponentBase {
 	 * {@link TextComponentTranslation} and it's the score value for a
 	 * {@link TextComponentScore}.
 	 */
+	@Override
 	public String getUnformattedComponentText() {
 		return this.text;
 	}
@@ -40,17 +42,19 @@ public class TextComponentString extends TextComponentBase {
 	 * Creates a copy of this component. Almost a deep copy, except the style is
 	 * shallow-copied.
 	 */
-	public TextComponentString createCopy() {
+	@Override
+	public TextComponentString shallowCopy() {
 		TextComponentString textcomponentstring = new TextComponentString(this.text);
 		textcomponentstring.setStyle(this.getStyle().createShallowCopy());
 
 		for (ITextComponent itextcomponent : this.getSiblings()) {
-			textcomponentstring.appendSibling(itextcomponent.createCopy());
+			textcomponentstring.appendSibling(itextcomponent.shallowCopy());
 		}
 
 		return textcomponentstring;
 	}
 
+	@Override
 	public boolean equals(Object p_equals_1_) {
 		if (this == p_equals_1_) {
 			return true;
@@ -58,7 +62,7 @@ public class TextComponentString extends TextComponentBase {
 			return false;
 		} else {
 			TextComponentString textcomponentstring = (TextComponentString) p_equals_1_;
-			return this.text.equals(textcomponentstring.getText()) && super.equals(p_equals_1_);
+			return this.text.equals(textcomponentstring.getFormattedText()) && super.equals(p_equals_1_);
 		}
 	}
 

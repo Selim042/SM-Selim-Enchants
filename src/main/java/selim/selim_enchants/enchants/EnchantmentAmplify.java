@@ -37,7 +37,6 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 	public EnchantmentAmplify() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.DIGGER,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "amplify";
 		this.setRegistryName("amplify");
 	}
 

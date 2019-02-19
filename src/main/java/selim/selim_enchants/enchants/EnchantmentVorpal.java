@@ -41,7 +41,6 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentVorpal() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "vorpal";
 		this.setRegistryName("vorpal");
 	}
 
@@ -127,7 +126,7 @@ public class EnchantmentVorpal extends EnchantmentSelim implements ITooltipInfo 
 			else if (entity instanceof EntityPlayer) {
 				ItemStack itemStack = new ItemStack(Items.PLAYER_HEAD, 1);
 				itemStack.setTag(new NBTTagCompound());
-				itemStack.getTag().setString("SkullOwner", entity.getName().getString());
+				itemStack.getTag().putString("SkullOwner", entity.getName().getString());
 				return itemStack;
 			} else if (entity instanceof EntityCreeper)
 				return new ItemStack(Items.CREEPER_HEAD, 1);

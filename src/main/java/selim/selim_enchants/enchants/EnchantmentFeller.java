@@ -23,7 +23,6 @@ public class EnchantmentFeller extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentFeller() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.DIGGER,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "feller";
 		this.setRegistryName("feller");
 	}
 

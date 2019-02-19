@@ -31,7 +31,6 @@ public class EnchantmentBanishing extends EnchantmentSelim implements ITooltipIn
 	public EnchantmentBanishing() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "banishing";
 		this.setRegistryName("banishing");
 	}
 

@@ -37,7 +37,6 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 	public EnchantmentMagmaWalker() {
 		super(Enchantment.Rarity.RARE, EnumEnchantmentType.ARMOR_FEET,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.FEET });
-		this.name = SelimEnchants.MOD_ID + ":" + "magma_walker";
 		this.setRegistryName("magma_walker");
 	}
 

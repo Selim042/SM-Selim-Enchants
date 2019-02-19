@@ -37,7 +37,6 @@ public class EnchantmentTilling extends EnchantmentSelim implements ITooltipInfo
 	public EnchantmentTilling() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.ALL,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "tilling";
 		this.setRegistryName("tilling");
 	}
 

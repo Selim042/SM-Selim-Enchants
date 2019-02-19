@@ -30,7 +30,7 @@ public class EnchantmentWither extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentWither() {
 		super(Rarity.RARE, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "wither";
+		this.name = SelimEnchants.MOD_ID + ".wither";
 		this.setRegistryName("wither");
 	}
 

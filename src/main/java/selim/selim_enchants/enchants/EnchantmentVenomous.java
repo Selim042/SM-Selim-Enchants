@@ -30,7 +30,6 @@ public class EnchantmentVenomous extends EnchantmentSelim implements ITooltipInf
 	public EnchantmentVenomous() {
 		super(Rarity.RARE, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "venom";
 		this.setRegistryName("venom");
 	}
 

@@ -40,7 +40,6 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 	public EnchantmentEnderShift() {
 		super(Rarity.VERY_RARE, EnumEnchantmentType.ALL,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "ender_shift";
 		this.setRegistryName("ender_shift");
 	}
 

@@ -28,7 +28,6 @@ public class EnchantmentCurseBreaking extends EnchantmentSelim implements IToolt
 
 	public EnchantmentCurseBreaking() {
 		super(Rarity.COMMON, EnumEnchantmentType.BREAKABLE, EntityEquipmentSlot.values());
-		this.name = SelimEnchants.MOD_ID + ":curse_breaking";
 		this.setRegistryName("curse_breaking");
 	}
 

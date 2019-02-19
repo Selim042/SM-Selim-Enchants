@@ -34,7 +34,6 @@ public class EnchantmentWarping extends EnchantmentSelim implements ITooltipInfo
 	public EnchantmentWarping() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "warping";
 		this.setRegistryName("warping");
 	}
 

@@ -37,7 +37,6 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 	public EnchantmentRecall() {
 		super(Rarity.VERY_RARE, EnumEnchantmentType.BOW,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
-		this.name = SelimEnchants.MOD_ID + ":recall";
 		this.setRegistryName("recall");
 	}
 

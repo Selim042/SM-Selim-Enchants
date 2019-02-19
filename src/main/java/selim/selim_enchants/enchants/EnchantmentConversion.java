@@ -31,7 +31,6 @@ public class EnchantmentConversion extends EnchantmentSelim implements ITooltipI
 	public EnchantmentConversion() {
 		super(Rarity.RARE, EnumEnchantmentType.ALL,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND, EntityEquipmentSlot.OFFHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "conversion";
 		this.setRegistryName("conversion");
 	}
 

@@ -39,7 +39,6 @@ public class EnchantmentUncivilized extends EnchantmentSelim implements ITooltip
 	public EnchantmentUncivilized() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-		this.name = SelimEnchants.MOD_ID + ":" + "uncivilized";
 		this.setRegistryName("uncivilized");
 	}
 
