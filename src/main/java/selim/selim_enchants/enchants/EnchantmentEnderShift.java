@@ -93,26 +93,22 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 			event.getDrops().clear();
 	}
 
-	// @SubscribeEvent(priority = EventPriority.HIGHEST)
-	// public static void onMobDeathFirst(LivingDropsEvent event) {
-	// if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
-	// return;
-	// Entity killer = event.getSource().getTrueSource();
-	// if (!(killer instanceof EntityPlayer) || killer.world.isRemote ||
-	// event.isCanceled())
-	// return;
-	// EntityPlayer livingKiller = (EntityPlayer) killer;
-	// int level =
-	// EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.ENDER_SHIFT,
-	// livingKiller.getHeldItem(EnumHand.MAIN_HAND));
-	// if (level <= 0)
-	// return;
-	// if (!event.isCanceled())
-	// event.getEntity().captureDrops = true;
-	// }
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void onMobDeathFirst(LivingDropsEvent event) {
+		if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
+			return;
+		Entity killer = event.getSource().getTrueSource();
+		if (!(killer instanceof EntityPlayer) || killer.world.isRemote || event.isCanceled())
+			return;
+		EntityPlayer livingKiller = (EntityPlayer) killer;
+		int level = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.ENDER_SHIFT,
+				livingKiller.getHeldItem(EnumHand.MAIN_HAND));
+		if (level <= 0)
+			return;
+		if (!event.isCanceled())
+			event.getEntity().captureDrops(event.getDrops());
+	}
 
-	// TODO: double check this change works, no longer set captureDrops before
-	// rest are called, instead call captureDrops at the end
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onMobDeathLast(LivingDropsEvent event) {
 		if (!Registry.Enchantments.ENDER_SHIFT.isEnabled())
@@ -127,6 +123,8 @@ public class EnchantmentEnderShift extends EnchantmentSelim implements ITooltipI
 
 	private static boolean handleDropEntities(World world, BlockPos dropPos, EntityPlayer player,
 			Collection<EntityItem> dropEntities) {
+		if (dropEntities == null)
+			return false;
 		List<ItemStack> dropStacks = new ArrayList<>();
 		for (EntityItem i : dropEntities)
 			dropStacks.add(i.getItem());

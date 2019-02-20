@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 public class BlockCooledMagma extends BlockMagma {
 
@@ -27,20 +28,22 @@ public class BlockCooledMagma extends BlockMagma {
 				.needsRandomTick().hardnessAndResistance(0.5F));
 		this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
 		this.setRegistryName("cooled_magma");
-		// TODO: find setter for harvest tool and level
-		// this.setHarvestLevel("pickaxe", 0);
+	}
+
+	@Override
+	public ToolType getHarvestTool(IBlockState state) {
+		return ToolType.PICKAXE;
+	}
+
+	@Override
+	public int getHarvestLevel(IBlockState state) {
+		return 0;
 	}
 
 	protected void turnIntoLava(World worldIn, BlockPos pos) {
 		worldIn.setBlockState(pos, Blocks.LAVA.getDefaultState());
 		worldIn.notifyNeighborsOfStateChange(pos, Blocks.LAVA);
 	}
-
-	// TODO: find CreativeTabs replacement
-	// @Override
-	// public CreativeTabs getCreativeTabToDisplayOn() {
-	// return null;
-	// }
 
 	@Override
 	public void tick(IBlockState state, World worldIn, BlockPos pos, Random rand) {

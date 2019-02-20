@@ -82,6 +82,7 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 
 	private static void freezeNearby(EntityLivingBase living, World worldIn, BlockPos pos, int level) {
 		if (living.onGround) {
+			IBlockState cooledMagma = Registry.Blocks.COOLED_MAGMA.getDefaultState();
 			float radius = (float) Math.min(16, 2 + level);
 			BlockPos.MutableBlockPos upperPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
@@ -91,20 +92,15 @@ public class EnchantmentMagmaWalker extends EnchantmentSelim implements ITooltip
 				if (lavaPos.distanceSqToCenter(living.posX, living.posY,
 						living.posZ) <= (double) (radius * radius)) {
 					upperPos.setPos(lavaPos.getX(), lavaPos.getY() + 1, lavaPos.getZ());
-					IBlockState airState = worldIn.getBlockState(upperPos);
-					if (airState.getMaterial() == Material.AIR) {
+					IBlockState upperState = worldIn.getBlockState(upperPos);
+					if (upperState.isAir(worldIn, upperPos)) {
 						IBlockState lavaState = worldIn.getBlockState(lavaPos);
-
-						if (lavaState.getMaterial() == Material.LAVA
-								&& (lavaState.getBlock() == Blocks.LAVA)
-								&& lavaState.get(BlockFlowingFluid.LEVEL).intValue() == 0
-						// TODO: find replacement for World#mayPlace
-						// && worldIn.mayPlace(Registry.Blocks.COOLED_MAGMA,
-						// lavaPos, false,
-						// EnumFacing.DOWN, (Entity) null)
-						) {
-							worldIn.setBlockState(lavaPos,
-									Registry.Blocks.COOLED_MAGMA.getDefaultState());
+						boolean isFull = lavaState.getBlock() == Blocks.LAVA
+								&& lavaState.get(BlockFlowingFluid.LEVEL) == 0;
+						if (lavaState.getMaterial() == Material.LAVA && isFull
+								&& cooledMagma.isValidPosition(worldIn, lavaPos)
+								&& worldIn.checkNoEntityCollision(cooledMagma, lavaPos)) {
+							worldIn.setBlockState(lavaPos, cooledMagma);
 							worldIn.getPendingBlockTicks().scheduleTick(lavaPos.toImmutable(),
 									Registry.Blocks.COOLED_MAGMA,
 									MathHelper.nextInt(living.getRNG(), 60, 120));

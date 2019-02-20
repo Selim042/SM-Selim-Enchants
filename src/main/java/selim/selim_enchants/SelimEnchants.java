@@ -8,8 +8,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 
-// TODO: figure out how to set name and version now
-//@Mod(modid = SelimEnchants.MOD_ID, name = SelimEnchants.NAME, version = SelimEnchants.VERSION)
 @Mod(SelimEnchants.MOD_ID)
 public class SelimEnchants {
 

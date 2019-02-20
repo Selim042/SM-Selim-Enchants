@@ -3,7 +3,7 @@ package selim.selim_enchants;
 // TODO: figured out how configs work now and uncomment all
 public class EnchantConfig {
 
-	// private static Configuration config;
+	// private static ForgeConfigSpec config;
 	// private static boolean loaded = false;
 	// private static boolean inited = false;
 	//
@@ -14,7 +14,7 @@ public class EnchantConfig {
 	// protected static void load(File configFile) {
 	// if (loaded)
 	// return;
-	// config = new Configuration(configFile, SelimEnchants.VERSION);
+	// config = new ForgeConfigSpec(configFile, SelimEnchants.VERSION);
 	// loaded = true;
 	// }
 	//
@@ -26,8 +26,7 @@ public class EnchantConfig {
 	// EnchantmentSelim ench = (EnchantmentSelim) f.get(null);
 	// if (ench != null)
 	// ENABLED.put(ench, config.getBoolean(
-	// "enable_" + ench.getRegistryName().getResourcePath(), "general", true,
-	// ""));
+	// "enable_" + ench.getRegistryName().getPath(), "general", true, ""));
 	// }
 	// } catch (IllegalArgumentException | IllegalAccessException e) {
 	// e.printStackTrace();

@@ -1,5 +1,6 @@
 package selim.selim_enchants.enchants;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -90,33 +91,22 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 		return false;
 	}
 
-	@Override
-	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-		// if (!user.isServerWorld() || !(target instanceof EntityLiving))
-		// return;
-		// EntityLiving living = (EntityLiving) target;
-		// System.out.println(living.getHealth() <= 0.0f);
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void onEntityDeathFirst(LivingDropsEvent event) {
+		if (!Registry.Enchantments.RECALL.isEnabled())
+			return;
+		Entity killer = event.getSource().getTrueSource();
+		if (!(killer instanceof EntityLivingBase) || killer.world.isRemote || event.isCanceled())
+			return;
+		EntityLivingBase livingKiller = (EntityLivingBase) killer;
+		int recallLevel = EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.RECALL,
+				livingKiller.getHeldItem(EnumHand.MAIN_HAND));
+		if (recallLevel <= 0)
+			return;
+		if (!event.isCanceled())
+			event.getEntity().captureDrops(event.getDrops());
 	}
 
-	// @SubscribeEvent(priority = EventPriority.HIGHEST)
-	// public static void onEntityDeathFirst(LivingDropsEvent event) {
-	// if (!Registry.Enchantments.RECALL.isEnabled())
-	// return;
-	// Entity killer = event.getSource().getTrueSource();
-	// if (!(killer instanceof EntityLivingBase) || killer.world.isRemote ||
-	// event.isCanceled())
-	// return;
-	// EntityLivingBase livingKiller = (EntityLivingBase) killer;
-	// int recallLevel =
-	// EnchantmentHelper.getEnchantmentLevel(Registry.Enchantments.RECALL,
-	// livingKiller.getHeldItem(EnumHand.MAIN_HAND));
-	// if (recallLevel <= 0)
-	// return;
-	// if (!event.isCanceled())
-	// event.getEntity().captureDrops = true;
-	// }
-
-	// TODO: see todo on EnchantmentEnderShift#onMobDeathLast
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onEntityDeathLast(LivingDropsEvent event) {
 		if (!Registry.Enchantments.RECALL.isEnabled())
@@ -131,7 +121,10 @@ public class EnchantmentRecall extends EnchantmentSelim implements ITooltipInfo 
 		if (recallLevel <= 0)
 			return;
 		Random rand = killed.world.rand;
-		for (EntityItem stack : event.getDrops())
+		Collection<EntityItem> drops = killed.captureDrops();
+		if (drops == null)
+			return;
+		for (EntityItem stack : drops)
 			if (rand.nextFloat() <= recallLevel / 3.0f)
 				stack.setLocationAndAngles(killer.posX, killer.posY, killer.posZ, stack.rotationYaw,
 						stack.rotationPitch);
