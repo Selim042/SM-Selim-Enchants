@@ -12,6 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -56,24 +57,26 @@ public class TooltipHandler {
 
 			// "Shift for more info" text
 			if (!GuiScreen.isShiftKeyDown()) {
-				tooltip.add(index,
-						new TextComponentString(
-								TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC + " - "
-										+ I18n.format(SelimEnchants.MOD_ID + ".shift_for_info")));
+				tooltip.add(index, new TextComponentString(" - ")
+						.applyTextStyles(TextFormatting.DARK_GRAY, TextFormatting.ITALIC).appendSibling(
+								new TextComponentTranslation(SelimEnchants.MOD_ID + ".shift_for_info")));
 				continue;
 			}
 
 			// Get and translate ITooltipInfo text
-			List<String> infoList = new LinkedList<>();
+			List<ITextComponent> infoList = new LinkedList<>();
 			ITooltipInfo tooltipInfo = (ITooltipInfo) ench;
 			tooltipInfo.addInformation(stack, event.getEntity().world, infoList, event.getFlags());
 			if (!infoList.isEmpty())
 				for (int i = 0; i < infoList.size(); i++)
-					tooltip.add(index + i, new TextComponentString(TextFormatting.DARK_GRAY.toString()
-							+ TextFormatting.ITALIC + " - " + infoList.get(i)));
+					tooltip.add(index + i,
+							new TextComponentString(" - ")
+									.applyTextStyles(TextFormatting.DARK_GRAY, TextFormatting.ITALIC)
+									.appendSibling(infoList.get(i)));
 			else
-				tooltip.add(index, new TextComponentString(" " + TextFormatting.DARK_GRAY
-						+ TextFormatting.ITALIC + I18n.format(SelimEnchants.MOD_ID + ".no_info_found")));
+				tooltip.add(index, new TextComponentString(" ")
+						.applyTextStyles(TextFormatting.DARK_GRAY, TextFormatting.ITALIC).appendSibling(
+								new TextComponentTranslation(SelimEnchants.MOD_ID + ".no_info_found")));
 		}
 	}
 

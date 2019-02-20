@@ -1,10 +1,6 @@
 package selim.selim_enchants.enchants;
 
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -18,10 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,17 +31,6 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 		super(Rarity.UNCOMMON, EnumEnchantmentType.DIGGER,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
 		this.setRegistryName("amplify");
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
-			ITooltipFlag flagIn) {
-		if (!this.isEnabled())
-			tooltip.add(
-					TextFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
-		else
-			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".amplify.desc"));
 	}
 
 	@Override

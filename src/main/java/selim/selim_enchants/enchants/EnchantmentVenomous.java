@@ -1,9 +1,5 @@
 package selim.selim_enchants.enchants;
 
-import java.util.List;
-
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
@@ -16,14 +12,9 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 import selim.selim_enchants.EnchantmentSelim;
 import selim.selim_enchants.ITooltipInfo;
-import selim.selim_enchants.SelimEnchants;
 
 public class EnchantmentVenomous extends EnchantmentSelim implements ITooltipInfo {
 
@@ -31,17 +22,6 @@ public class EnchantmentVenomous extends EnchantmentSelim implements ITooltipInf
 		super(Rarity.RARE, EnumEnchantmentType.WEAPON,
 				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
 		this.setRegistryName("venom");
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip,
-			ITooltipFlag flagIn) {
-		if (!this.isEnabled())
-			tooltip.add(
-					TextFormatting.DARK_RED + I18n.format(SelimEnchants.MOD_ID + ":enchant_disabled"));
-		else
-			tooltip.add(I18n.format("enchantment." + SelimEnchants.MOD_ID + ".venom.desc"));
 	}
 
 	@Override
