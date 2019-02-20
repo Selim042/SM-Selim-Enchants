@@ -56,8 +56,9 @@ public class TooltipHandler {
 			// "Shift for more info" text
 			if (!GuiScreen.isShiftKeyDown()) {
 				tooltip.add(index,
-						new TextComponentString(" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC
-								+ I18n.format(SelimEnchants.MOD_ID + ".shift_for_info")));
+						new TextComponentString(
+								TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC + " - "
+										+ I18n.format(SelimEnchants.MOD_ID + ".shift_for_info")));
 				continue;
 			}
 
@@ -67,8 +68,8 @@ public class TooltipHandler {
 			tooltipInfo.addInformation(stack, event.getEntity().world, infoList, event.getFlags());
 			if (!infoList.isEmpty())
 				for (int i = 0; i < infoList.size(); i++)
-					tooltip.add(index + i, new TextComponentString(
-							" " + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + infoList.get(i)));
+					tooltip.add(index + i, new TextComponentString(TextFormatting.DARK_GRAY.toString()
+							+ TextFormatting.ITALIC + " - " + infoList.get(i)));
 			else
 				tooltip.add(index, new TextComponentString(" " + TextFormatting.DARK_GRAY
 						+ TextFormatting.ITALIC + I18n.format(SelimEnchants.MOD_ID + ".no_info_found")));
