@@ -29,8 +29,7 @@ public class EnchantmentSelim extends Enchantment implements ITooltipInfo {
 	@Override
 	public ITextComponent func_200305_d(int level) {
 		if (!isEnabled())
-			return new TextComponentString(
-					TextFormatting.DARK_RED + super.func_200305_d(level).getFormattedText());
+			return super.func_200305_d(level).applyTextStyle(TextFormatting.DARK_RED);
 		return super.func_200305_d(level);
 	}
 
