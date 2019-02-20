@@ -108,9 +108,10 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 				for (int y = enchLevel * -1; y <= enchLevel; y++) {
 					BlockPos newPos = nextPos(pos, x, y,
 							MathHelper.floor((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
-					if (itemStack.canHarvestBlock(world.getBlockState(newPos))
-							|| (isSpade && world.getBlockState(newPos).getBlock()
-									.isToolEffective(world.getBlockState(newPos), ToolType.SHOVEL))) {
+					IBlockState blockState = world.getBlockState(newPos);
+					if (blockState.getBlockHardness(world, newPos) >= 0
+							&& (itemStack.canHarvestBlock(blockState) || (isSpade && blockState
+									.getBlock().isToolEffective(blockState, ToolType.SHOVEL)))) {
 						if (!player.isCreative())
 							if (player instanceof EntityPlayerMP)
 								itemStack.attemptDamageItem(1, player.getRNG(), (EntityPlayerMP) player);
