@@ -68,11 +68,16 @@ public class EnchantmentBanishing extends EnchantmentSelim implements ITooltipIn
 			target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5f);
 			return;
 		}
-		for (EnumCreatureType type : EnumCreatureType.values())
-			for (Biome.SpawnListEntry e : ForgeRegistries.BIOMES.getValue(new ResourceLocation("hell"))
-					.getSpawns(type))
-				if (e.entityType.equals(target.getType()))
+		Biome nether = ForgeRegistries.BIOMES.getValue(new ResourceLocation("nether"));
+		if (nether == null)
+			return;
+		for (EnumCreatureType type : EnumCreatureType.values()) {
+			for (Biome.SpawnListEntry e : nether.getSpawns(type)) {
+				if (e.entityType.equals(target.getType())) {
 					target.attackEntityFrom(DamageSource.causeMobDamage(user), level * 2.5f);
+				}
+			}
+		}
 	}
 
 }
