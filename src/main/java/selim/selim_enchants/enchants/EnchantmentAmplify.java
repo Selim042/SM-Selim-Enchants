@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -125,9 +126,10 @@ public class EnchantmentAmplify extends EnchantmentSelim implements ITooltipInfo
 				for (int y = enchLevel * -1; y <= enchLevel; y++) {
 					BlockPos newPos = nextPos(pos, x, y,
 							MathHelper.floor((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
-					if (itemStack.canHarvestBlock(world.getBlockState(newPos))
-							|| (isSpade && world.getBlockState(newPos).getBlock()
-									.isToolEffective("shovel", world.getBlockState(newPos)))) {
+					IBlockState blockState = world.getBlockState(newPos);
+					if (blockState.getBlockHardness(world, newPos) >= 0 && (itemStack
+							.canHarvestBlock(blockState)
+							|| (isSpade && ForgeHooks.isToolEffective(world, newPos, itemStack)))) {
 						if (!player.isCreative())
 							// TODO: Replace null param
 							itemStack.attemptDamageItem(1, player.getRNG(), null);
