@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:wither",
+    "minecraft:blaze",
+    "minecraft:piglin",
+    "minecraft:piglin_brute",
+    "minecraft:zombified_piglin",
+    "minecraft:hoglin",
+    "minecraft:zoglin",
+    "minecraft:strider",
+    "minecraft:wither_skeleton",
+    "minecraft:magma_cube"
+  ]
+}

@@ -1,52 +1,83 @@
 package selim.selim_enchants;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraftforge.common.config.Configuration;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.config.IConfigSpec;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.registries.RegistryObject;
 
-//@Config(modid = SelimEnchants.MOD_ID)
-public class EnchantConfig {
+public class EnchantConfig extends ModConfig {
 
-	private static Configuration config;
-	private static boolean loaded = false;
-	private static boolean inited = false;
+	public static ForgeConfigSpec CONFIG;
 
-	private static final Map<EnchantmentSelim, Boolean> ENABLED = new HashMap<>();
-	public static boolean LOOTING_ONLY_HEADS = true;
+	public static ForgeConfigSpec.BooleanValue VERBOSE;
 
-	protected static void load(File configFile) {
-		if (loaded)
-			return;
-		config = new Configuration(configFile, SelimEnchants.VERSION);
-		loaded = true;
+	private static final Map<String, ForgeConfigSpec.BooleanValue> ENABLED = new HashMap<>();
+
+	public static ForgeConfigSpec.BooleanValue HEADS_WITHOUT_VORPAL;
+	public static ForgeConfigSpec.IntValue MAX_FELLER_BLOCKS;
+
+	public EnchantConfig(ModConfig.Type type, IConfigSpec<?> spec, ModContainer container, String fileName) {
+		super(type, spec, container, fileName + ".toml");
 	}
 
-	protected static void init() {
-		if (inited)
-			return;
+	static {
+		ForgeConfigSpec.Builder commonBuilder = new ForgeConfigSpec.Builder();
+		registerCommonConfig(commonBuilder);
+		CONFIG = commonBuilder.build();
+	}
+
+	public static void registerCommonConfig(ForgeConfigSpec.Builder commonBuilder) {
+		commonBuilder.comment("Configs for Selim Enchants").push("general");
+
+		VERBOSE = commonBuilder.comment("Should only be set to true if requested to do so.\nThis may spam your logs.")
+				.define("verbose", false);
+		HEADS_WITHOUT_VORPAL = commonBuilder.comment("Should mobs drop heads without Vorpal?")
+				.define("heads_without_vorpal", true);
+		MAX_FELLER_BLOCKS = commonBuilder.comment("Maximum number of blocks that Feller can break at once")
+				.defineInRange("max_feller_blocks", 1024, 32, 4096);
+
+		commonBuilder.pop().comment("Enable or disable each enchant added").push("enchantment_disabling");
 		try {
-			for (Field f : Registry.Enchantments.class.getDeclaredFields()) {
-				EnchantmentSelim ench = (EnchantmentSelim) f.get(null);
-				if (ench != null)
-					ENABLED.put(ench, config.getBoolean(
-							"enable_" + ench.getRegistryName().getResourcePath(), "general", true, ""));
+			for (Field f : ModRegistry.Enchantments.class.getDeclaredFields()) {
+				Object value = f.get(null);
+				if (RegistryObject.class.isInstance(value)) {
+					@SuppressWarnings("unchecked")
+					RegistryObject<SelimEnchant> regObject = ((RegistryObject<SelimEnchant>) value);
+					String name = regObject.getId().getPath();
+					ENABLED.put(name, commonBuilder.define("enable_" + name, true));
+				}
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		LOOTING_ONLY_HEADS = config.getBoolean("looting_only_heads", "vorpal", true,
-				"Allows mob heads to drop at a low rate when only looting is applied");
-		config.save();
-		inited = true;
 	}
 
-	public static boolean isEnabled(EnchantmentSelim ench) {
-		if (!ENABLED.containsKey(ench))
+	public static boolean isEnabled(RegistryObject<? extends SelimEnchant> ench) {
+		if (ench.isPresent())
+			return isEnabled(ench.getId());
+		return false;
+	}
+
+	public static boolean isEnabled(ResourceLocation loc) {
+		return isEnabled(loc.getPath());
+	}
+
+	private static boolean isEnabled(String name) {
+		if (!ENABLED.containsKey(name))
 			return false;
-		return ENABLED.get(ench);
+		return ENABLED.get(name).get();
+	}
+
+	@Deprecated
+	public static boolean isEnabled(SelimEnchant ench) {
+		return isEnabled(Registry.ENCHANTMENT.getKey(ench));
 	}
 
 	// @RequiresMcRestart

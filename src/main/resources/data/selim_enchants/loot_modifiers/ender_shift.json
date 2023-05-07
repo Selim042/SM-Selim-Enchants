@@ -1,0 +1,19 @@
+{
+  "type": "selim_enchants:ender_shift",
+  "conditions": [
+  	{
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "enchantments": [
+          {
+            "enchantment": "selim_enchants:ender_shift",
+            "levels": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "function": "selim_enchants:ender_shift"
+}

@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "selim_enchants:blocks/cooled_magma_2"
+        "all": "selim_enchants:block/cooled_magma_2"
     }
 }
