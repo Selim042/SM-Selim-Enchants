@@ -61,7 +61,8 @@ public class SelimDamageEnchant extends SelimEnchant {
 		if (target.getType().getTags().anyMatch((t) -> t.location().toString().equals(this.tag))) {
 			target.invulnerableTime = 0;
 			target.hurt(DamageSource.mobAttack(user), level * this.damageMult);
-			((Player) user).magicCrit(target);
+			if (user instanceof Player)
+				((Player) user).magicCrit(target);
 		}
 	}
 
