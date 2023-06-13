@@ -88,7 +88,7 @@ public class VorpalEnchantment extends SelimEnchant {
 			else if (entity instanceof Player) {
 				ItemStack itemStack = new ItemStack(Items.PLAYER_HEAD);
 				itemStack.setTag(new CompoundTag());
-				itemStack.getTag().putString("SkullOwner", entity.getName().toString());
+				itemStack.getTag().putString("SkullOwner", entity.getName().getString());
 				return itemStack;
 			} else if (entity instanceof Creeper)
 				return new ItemStack(Items.CREEPER_HEAD);
