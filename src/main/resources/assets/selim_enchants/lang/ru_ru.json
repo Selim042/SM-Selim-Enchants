@@ -1,0 +1,40 @@
+{
+    "enchantment.selim_enchants.amplify": "Усиление",
+    "enchantment.selim_enchants.banishing": "Изгнание",
+    "enchantment.selim_enchants.feller": "Дровосек",
+    "enchantment.selim_enchants.magma_walker": "Магмаход",
+    "enchantment.selim_enchants.recall": "Возвращение",
+    "enchantment.selim_enchants.uncivilized": "Дикий",
+    "enchantment.selim_enchants.vorpal": "Разащий",
+    "enchantment.selim_enchants.warped": "Искажённый",
+    "enchantment.selim_enchants.wither": "Иссушение",
+    "enchantment.selim_enchants.tilling": "Вспашка",
+    "enchantment.selim_enchants.venomous": "Ядовитый",
+    "enchantment.selim_enchants.conversion": "Преобразование",
+    "enchantment.selim_enchants.reflection": "Отражение",
+    "enchantment.selim_enchants.ender_shift": "Эндерсмещение",
+
+    "enchantment.selim_enchants.breaking_curse": "Проклятие разрушения",
+
+    "enchantment.selim_enchants.amplify.desc": "Усиляет Ваши инструменты силой по большой площади.",
+    "enchantment.selim_enchants.banishing.desc": "Дополнительный урон по существам Незера.",
+    "enchantment.selim_enchants.feller.desc": "Валит целое дерево одним взмахом.",
+    "enchantment.selim_enchants.magma_walker.desc": "Позволяет ходить по лаве, будто по твёрдой земле.",
+    "enchantment.selim_enchants.recall.desc": "Вероятность телепортации добычи врага к Вам.",
+    "enchantment.selim_enchants.uncivilized.desc": "Дополнительный урон по человекообразным существам.",
+    "enchantment.selim_enchants.vorpal.desc": "Есть шанс, что с поражённого существа выпадет его же голова.",
+    "enchantment.selim_enchants.warped.desc": "Дополнительный урон по Эндер существам.",
+    "enchantment.selim_enchants.wither.desc": "Накладывает эффект иссушения.",
+    "enchantment.selim_enchants.tilling.desc": "Вспахивает большую область земли.",
+    "enchantment.selim_enchants.venomous.desc": "Накладывает эффект отравления.",
+    "enchantment.selim_enchants.conversion.desc": "Исцеляет игрока будучи атакованным.",
+    "enchantment.selim_enchants.reflection.desc": "Отражает часть заблокированного урона на атакующего.",
+    "enchantment.selim_enchants.ender_shift.desc": "Телепортирует выброшенные предметы в Ваш Эндер-сундук.",
+
+    "enchantment.selim_enchants.breaking_curse.desc": "Заставляет ваше снаряжение быстрее изнашиваться.",
+
+    "selim_enchants.shift_for_info": "Shift для подробностей...",
+    "selim_enchants.no_info_found": "Информация не найдена...",
+    "selim_enchants.enchant_disabled": "Этот чар был отключён.",
+    "selim_enchants.num_enchants_disabled": "%s чар отключено: "
+}
